@@ -32,6 +32,10 @@ STATION_PICTURE = pygame.image.load(os.path.join("bilder", "station.png"))
 STATION_PICTURE = pygame.transform.scale(STATION_PICTURE, (100, 70))
 CHAIR_PICTURE = pygame.image.load(os.path.join("bilder", "sessel.png"))
 CHAIR_PICTURE = pygame.transform.scale(CHAIR_PICTURE, (40, 40))
+CHAIR_PICTURE_RIGHT = pygame.image.load(os.path.join("bilder", "sessel_seite.png"))
+CHAIR_PICTURE_RIGHT = pygame.transform.scale(CHAIR_PICTURE_RIGHT, (40, 40))
+CHAIR_PICTURE_LEFT = pygame.image.load(os.path.join("bilder", "sessel_seite_2.png"))
+CHAIR_PICTURE_LEFT = pygame.transform.scale(CHAIR_PICTURE_LEFT, (40, 40))
 
 SKIER_PICTURES = []
 SKIER_PICTURES.append(SKIER1_PICTURE)
@@ -64,10 +68,14 @@ station_up = Station(950, 100, CAPACITY)
 
 class Chair(pygame.sprite.Sprite):
 
-    def __init__(self, direction, x, y):
+    def __init__(self, direction, x, y, view):
         pygame.sprite.Sprite.__init__(self)
         self.distance = 0
-        self.picture = CHAIR_PICTURE.copy()
+        if view == "front":
+            self.picture = CHAIR_PICTURE.copy()
+        else:
+            self.picture = CHAIR_PICTURE_RIGHT.copy()
+
         self.rect = self.picture.get_rect()
         self.rect.x = x
         self.rect.y = y
@@ -80,6 +88,7 @@ class Chair(pygame.sprite.Sprite):
 
         if self.direction == 0:
             if self.rect.y < station_up.rect.midleft[1]+5:
+                self.picture = CHAIR_PICTURE
                 if len(self.skiers) > 0:
                     for s in self.skiers:
                         DRIVING_SKIERS.add(s)
@@ -87,6 +96,7 @@ class Chair(pygame.sprite.Sprite):
                         self.skiers = []
                 if self.rect.x < station_up.rect.midright[0]-22:
                     self.rect.x += speed
+                    self.picture = CHAIR_PICTURE_RIGHT
                 else:
                     self.rect.x = station_up.rect.midright[0]-22
                     self.direction = 1
@@ -98,10 +108,12 @@ class Chair(pygame.sprite.Sprite):
                 self.rect.y = station_down.rect.bottomright[1] - 30
                 if self.rect.x > station_down.rect.midleft[0]-15:
                     self.rect.x -= speed
+                    self.picture = CHAIR_PICTURE_LEFT
                 else:
                     self.rect.x = station_down.rect.midleft[0] - 15
                     self.direction = 0
                     self.rect.y -= speed
+                    self.picture = CHAIR_PICTURE
                     for i in range(CAPACITY):
                         if WAITING_SKIERS.sprites()[0].rect.x < station_down.rect.x+70:
                             self.skiers.append(WAITING_SKIERS.sprites()[0])
@@ -191,16 +203,16 @@ def set_chairs_on_lift(number_of_chairs):
             x_current -= rest
 
         if direction == "a":
-            Chair(0, x_current, y_current)
+            Chair(0, x_current, y_current, "front")
             y_current -= (distance)
         if direction == "b":
-            Chair(0, x_current, y_current)
+            Chair(0, x_current, y_current, "right")
             x_current += (distance)
         if direction == "c":
-            Chair(1, x_current, y_current)
+            Chair(1, x_current, y_current, "front")
             y_current += (distance)
         if direction == "d":
-            Chair(1, x_current, y_current)
+            Chair(1, x_current, y_current, "left")
             x_current -= (distance)
 
 
@@ -236,9 +248,7 @@ def main():
         screen.fill(WHITE)
         screen.blit(BACKGROUND, (0,0))
 
-        for s in WAITING_SKIERS:
-            screen.blit(s.picture, (s.rect.x, s.rect.y))
-            s.move(3)
+
 
         for s in DRIVING_SKIERS:
             screen.blit(s.picture, (s.rect.x, s.rect.y))
@@ -247,6 +257,10 @@ def main():
         for c in CHAIRS:
             screen.blit(c.picture, (c.rect.x, c.rect.y))
             c.move(2)
+
+        for s in WAITING_SKIERS:
+            screen.blit(s.picture, (s.rect.x, s.rect.y))
+            s.move(3)
 
 
 
