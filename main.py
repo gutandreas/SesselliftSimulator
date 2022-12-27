@@ -22,15 +22,25 @@ running = True
 FPS = 25
 FREQUENCY = 10
 MAX_FRAME = 301
-CAPACITY = 6
+CAPACITY = 4
 LIFT_SPEED = 1
 NUMBER_OF_CHAIRS_PER_KM = 30
 
+
+SKIER_DIMENSIONS = (25, 30)
 # Bilder
 BACKGROUND = pygame.image.load(os.path.join("bilder", "background.png"))
 BACKGROUND = pygame.transform.scale(BACKGROUND, (width, height))
-SKIER1_PICTURE = pygame.image.load(os.path.join("bilder", "skifahrer1.png"))
-SKIER1_PICTURE = pygame.transform.scale(SKIER1_PICTURE, (15, 30))
+SKIER_GREEN_PICTURE = pygame.image.load(os.path.join("bilder", "skifahrer_gruen.png"))
+SKIER_GREEN_PICTURE = pygame.transform.scale(SKIER_GREEN_PICTURE, SKIER_DIMENSIONS)
+SKIER_RED_PICTURE = pygame.image.load(os.path.join("bilder", "skifahrer_rot.png"))
+SKIER_RED_PICTURE = pygame.transform.scale(SKIER_RED_PICTURE, SKIER_DIMENSIONS)
+SKIER_BLUE_PICTURE = pygame.image.load(os.path.join("bilder", "skifahrer_blau.png"))
+SKIER_BLUE_PICTURE = pygame.transform.scale(SKIER_BLUE_PICTURE, SKIER_DIMENSIONS)
+SKIER_GREY_PICTURE = pygame.image.load(os.path.join("bilder", "skifahrer_grau.png"))
+SKIER_GREY_PICTURE = pygame.transform.scale(SKIER_GREY_PICTURE, SKIER_DIMENSIONS)
+SKIER_YELLOW_PICTURE = pygame.image.load(os.path.join("bilder", "skifahrer_gelb.png"))
+SKIER_YELLOW_PICTURE = pygame.transform.scale(SKIER_YELLOW_PICTURE, SKIER_DIMENSIONS)
 STATION_PICTURE = pygame.image.load(os.path.join("bilder", "station.png"))
 STATION_PICTURE = pygame.transform.scale(STATION_PICTURE, (100, 70))
 CHAIR_PICTURE = pygame.image.load(os.path.join("bilder", "sessel.png"))
@@ -41,7 +51,11 @@ CHAIR_PICTURE_LEFT = pygame.image.load(os.path.join("bilder", "sessel_seite_2.pn
 CHAIR_PICTURE_LEFT = pygame.transform.scale(CHAIR_PICTURE_LEFT, (40, 40))
 
 SKIER_PICTURES = []
-SKIER_PICTURES.append(SKIER1_PICTURE)
+SKIER_PICTURES.append(SKIER_GREY_PICTURE)
+SKIER_PICTURES.append(SKIER_YELLOW_PICTURE)
+SKIER_PICTURES.append(SKIER_BLUE_PICTURE)
+SKIER_PICTURES.append(SKIER_RED_PICTURE)
+SKIER_PICTURES.append(SKIER_GREEN_PICTURE)
 
 
 # Listen
@@ -122,9 +136,10 @@ class Chair(pygame.sprite.Sprite):
                     position = 10
                     for i in range(CAPACITY):
                         if WAITING_SKIERS.sprites()[0].rect.x < station_down.rect.x+70:
-                            self.skiers.append(WAITING_SKIERS.sprites()[0])
-                            WAITING_SKIERS.remove(WAITING_SKIERS.sprites()[0])
-                            pygame.draw.circle(self.picture, (0, 127, 155), (position, self.picture.get_rect().center[1]+8), 5)
+                            skier = WAITING_SKIERS.sprites()[0]
+                            self.skiers.append(skier)
+                            WAITING_SKIERS.remove(skier)
+                            pygame.draw.circle(self.picture, skier.get_color(), (position, self.picture.get_rect().center[1]+8), 3)
                             position += 30/CAPACITY
             else:
                 self.rect.y += speed
@@ -136,7 +151,8 @@ class Skier(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
         self.distance = 0
-        self.picture = pygame.transform.rotate(SKIER_PICTURES[random.randrange(len(SKIER_PICTURES))].copy(), 0)
+        self.type_number = random.randrange(len(SKIER_PICTURES))
+        self.picture = pygame.transform.rotate(SKIER_PICTURES[self.type_number].copy(), 0)
         self.rect = self.picture.get_rect()
         self.rect.x = 1600
         self.rect.y = 800
@@ -144,6 +160,17 @@ class Skier(pygame.sprite.Sprite):
         SKIERS.append(self)
         WAITING_SKIERS.add(self)
 
+    def get_color(self):
+        if self.type_number == 0:
+            return (100, 100, 100)
+        elif self.type_number == 1:
+            return (184, 191, 13)
+        elif self.type_number == 2:
+            return (0, 200, 255)
+        elif self.type_number == 3:
+            return (255, 20, 20)
+        else:
+            return (20, 220, 20)
 
     def move(self, speed):
         point_to_check = self.rect.midleft
