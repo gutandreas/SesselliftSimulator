@@ -20,15 +20,17 @@ BLUE = (100, 100, 255)
 # Steuerungsvariablen
 running = True
 FPS = 25
-FREQUENCY = 30
+FREQUENCY = 10
 MAX_FRAME = 301
-CAPACITY = 4
+CAPACITY = 6
+LIFT_SPEED = 1
+NUMBER_OF_CHAIRS_PER_KM = 30
 
 # Bilder
 BACKGROUND = pygame.image.load(os.path.join("bilder", "background.png"))
 BACKGROUND = pygame.transform.scale(BACKGROUND, (width, height))
 SKIER1_PICTURE = pygame.image.load(os.path.join("bilder", "skifahrer1.png"))
-SKIER1_PICTURE = pygame.transform.scale(SKIER1_PICTURE, (20, 30))
+SKIER1_PICTURE = pygame.transform.scale(SKIER1_PICTURE, (15, 30))
 STATION_PICTURE = pygame.image.load(os.path.join("bilder", "station.png"))
 STATION_PICTURE = pygame.transform.scale(STATION_PICTURE, (100, 70))
 CHAIR_PICTURE = pygame.image.load(os.path.join("bilder", "sessel.png"))
@@ -47,7 +49,6 @@ SKIERS = []
 CHAIRS = []
 WAITING_SKIERS = pygame.sprite.Group()
 DRIVING_SKIERS = pygame.sprite.Group()
-SITTING_SKIERS = pygame.sprite.Group()
 
 
 
@@ -230,7 +231,7 @@ def main():
     clock = pygame.time.Clock()
     counter = 0
 
-    set_chairs_on_lift(10)
+    set_chairs_on_lift(NUMBER_OF_CHAIRS_PER_KM)
 
 
 
@@ -262,7 +263,7 @@ def main():
 
         for c in CHAIRS:
             screen.blit(c.picture, (c.rect.x, c.rect.y))
-            c.move(1)
+            c.move(LIFT_SPEED)
 
         for s in WAITING_SKIERS:
             screen.blit(s.picture, (s.rect.x, s.rect.y))
@@ -271,8 +272,6 @@ def main():
 
 
         screen.blit(station_down.picture, (station_down.rect.x, station_down.rect.y))
-        #pygame.draw.rect(screen, (180, 180, 180), Rect(station_up.rect.x+40, station_up.rect.y+60, 10, 40))
-
         screen.blit(station_up.picture, (station_up.rect.x, station_up.rect.y))
 
         pygame.draw.line(screen, (0, 0, 0),
