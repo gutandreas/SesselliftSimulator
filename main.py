@@ -57,13 +57,29 @@ SKIER_PICTURES.append(SKIER_BLUE_PICTURE)
 SKIER_PICTURES.append(SKIER_RED_PICTURE)
 SKIER_PICTURES.append(SKIER_GREEN_PICTURE)
 
+# Werte
+skiers_in_queue = 0
+skiers_transported = 0
 
 # Listen
 SKIERS = []
 CHAIRS = []
 WAITING_SKIERS = pygame.sprite.Group()
 DRIVING_SKIERS = pygame.sprite.Group()
+TEXT_MESSAGES_TITLE = []
+TEXT_MESSAGES_VALUES = [skiers_in_queue, skiers_transported]
 
+
+
+# Textanzeigen
+FONTSIZE = 20
+#font = pygame.font.Font(pygame.font.get_default_font(), FONTSIZE)
+font = pygame.font.SysFont('arial black', FONTSIZE)
+
+titles = ["Skifahrer in Warteschlange:", "Skifahrer transportiert:"]
+for i in range(2):
+    text_message_title = font.render(titles[i], True, (0,0,0))
+    TEXT_MESSAGES_TITLE.append(text_message_title)
 
 
 
@@ -104,6 +120,8 @@ class Chair(pygame.sprite.Sprite):
 
     def move(self, speed):
 
+        global skiers_transported
+
         if self.direction == 0:
             if self.rect.y < station_up.rect.midleft[1]+5:
                 self.picture = CHAIR_PICTURE.copy()
@@ -112,6 +130,7 @@ class Chair(pygame.sprite.Sprite):
                         DRIVING_SKIERS.add(s)
                         s.rect.y = self.rect.y
                         self.skiers = []
+                        skiers_transported += 1
                 if self.rect.x < station_up.rect.midright[0]-22:
                     self.rect.x += speed
                     self.picture = CHAIR_PICTURE_RIGHT.copy()
@@ -159,6 +178,7 @@ class Skier(pygame.sprite.Sprite):
         self.rotated = False
         SKIERS.append(self)
         WAITING_SKIERS.add(self)
+
 
     def get_color(self):
         if self.type_number == 0:
@@ -273,6 +293,9 @@ def main():
 
     while running:
 
+        TEXT_MESSAGES_VALUES[0] = font.render(str(skiers_in_queue), True, (0,0,0))
+        TEXT_MESSAGES_VALUES[1] = font.render(str(skiers_transported), True, (0,0,0))
+
         if counter % FREQUENCY == 0:
             print("Skier")
             Skier()
@@ -292,14 +315,13 @@ def main():
             screen.blit(c.picture, (c.rect.x, c.rect.y))
             c.move(LIFT_SPEED)
 
+        screen.blit(station_down.picture, (station_down.rect.x, station_down.rect.y))
+        screen.blit(station_up.picture, (station_up.rect.x, station_up.rect.y))
+
         for s in WAITING_SKIERS:
             screen.blit(s.picture, (s.rect.x, s.rect.y))
             s.move(5)
 
-
-
-        screen.blit(station_down.picture, (station_down.rect.x, station_down.rect.y))
-        screen.blit(station_up.picture, (station_up.rect.x, station_up.rect.y))
 
         pygame.draw.line(screen, (0, 0, 0),
                                      (station_down.rect.midleft[0] + 5, station_down.rect.midleft[1]),
@@ -307,6 +329,17 @@ def main():
         pygame.draw.line(screen, (0, 0, 0),
                                       (station_down.rect.midright[0] - 3, station_down.rect.midright[1]),
                                       (station_up.rect.midright[0] - 3, station_up.rect.midright[1]))
+
+        position = 10
+        for t in TEXT_MESSAGES_TITLE:
+            screen.blit(t, pygame.Rect(20, position, 200, 30))
+            position += FONTSIZE + 10
+
+        position = 10
+        for t in TEXT_MESSAGES_VALUES:
+            screen.blit(t, pygame.Rect(350, position, 200, 30))
+            position += FONTSIZE + 10
+
 
         pygame.display.update()
 
