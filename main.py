@@ -26,7 +26,7 @@ FREQUENCY = 10
 MAX_FRAME = 301
 CAPACITY = 4
 LIFT_SPEED = 1
-NUMBER_OF_CHAIRS_PER_KM = 5
+NUMBER_OF_CHAIRS_PER_KM = 25
 
 
 SKIER_DIMENSIONS = (25, 30)
@@ -64,6 +64,7 @@ skiers_in_queue = 0
 skiers_transported = 0
 skiers_on_lift = 0
 percent_of_lift_in_use = 0
+average_waiting_frames = 0
 
 starting_point = 1600
 
@@ -82,7 +83,8 @@ FONTSIZE = 20
 #font = pygame.font.Font(pygame.font.get_default_font(), FONTSIZE)
 font = pygame.font.SysFont('arial black', FONTSIZE)
 
-titles = ["Skifahrer in Warteschlange:", "Skifahrer transportiert:", "Skifahrer auf Lift:", "Auslastung Lift:"]
+titles = ["Skifahrer in Warteschlange:", "Skifahrer transportiert:", "Skifahrer auf Lift:",
+          "Auslastung Lift:", "Durchschnittliche Wartezeit:"]
 for i in range(len(titles)):
     text_message_title = font.render(titles[i], True, (0,0,0))
     TEXT_MESSAGES_TITLE.append(text_message_title)
@@ -188,6 +190,7 @@ class Skier(pygame.sprite.Sprite):
         self.rect.x = starting_point
         self.rect.y = 800
         self.rotated = False
+        self.waiting_frames = 0
         SKIERS.append(self)
         WAITING_SKIERS.add(self)
 
@@ -290,6 +293,68 @@ def set_chairs_on_lift(number_of_chairs):
             Chair(1, x_current, y_current, "left")
             x_current -= (distance)
 
+def draw_screen(counter):
+    for s in DRIVING_SKIERS:
+        screen.blit(s.picture, (s.rect.x, s.rect.y))
+        s.drive(5)
+
+    transporting_chairs = 0
+    for c in CHAIRS:
+        screen.blit(c.picture, (c.rect.x, c.rect.y))
+        c.move(LIFT_SPEED)
+        if c.direction == 0 and c.rect.x <= station_down.rect.x - 15:
+            transporting_chairs += 1
+
+    screen.blit(station_down.picture, (station_down.rect.x, station_down.rect.y))
+    screen.blit(station_up.picture, (station_up.rect.x, station_up.rect.y))
+
+    skiers_in_queue = 0
+    waiting_sum = 0
+    for s in WAITING_SKIERS:
+        screen.blit(s.picture, (s.rect.x, s.rect.y))
+        s.move(5)
+        if s.is_in_queue():
+            skiers_in_queue += 1
+            s.waiting_frames += 1
+            waiting_sum += s.waiting_frames
+
+    global average_waiting_frames
+
+    if counter % FPS == 0:
+        if skiers_in_queue > 0:
+            average_waiting_frames = waiting_sum/skiers_in_queue
+        else:
+            average_waiting_frames = 0
+
+
+
+    pygame.draw.line(screen, (0, 0, 0),
+                     (station_down.rect.midleft[0] + 5, station_down.rect.midleft[1]),
+                     (station_up.rect.midleft[0] + 5, station_up.rect.midleft[1]))
+    pygame.draw.line(screen, (0, 0, 0),
+                     (station_down.rect.midright[0] - 3, station_down.rect.midright[1]),
+                     (station_up.rect.midright[0] - 3, station_up.rect.midright[1]))
+
+    TEXT_MESSAGES_VALUES = []
+    TEXT_MESSAGES_VALUES.append(font.render(str(skiers_in_queue), True, (0, 0, 0)))
+    TEXT_MESSAGES_VALUES.append(font.render(str(skiers_transported), True, (0, 0, 0)))
+    TEXT_MESSAGES_VALUES.append(font.render(str(skiers_on_lift), True, (0, 0, 0)))
+    TEXT_MESSAGES_VALUES.append(
+        font.render(str(skiers_on_lift / (transporting_chairs * CAPACITY) * 100) + " %", True, (0, 0, 0)))
+    TEXT_MESSAGES_VALUES.append(font.render(str(average_waiting_frames), True, (0, 0, 0)))
+
+    position = 10
+    for t in TEXT_MESSAGES_TITLE:
+        screen.blit(t, pygame.Rect(20, position, 200, 30))
+        position += FONTSIZE + 10
+
+    position = 10
+    for t in TEXT_MESSAGES_VALUES:
+        screen.blit(t, pygame.Rect(350, position, 200, 30))
+        position += FONTSIZE + 10
+
+    pygame.display.update()
+
 
 
 def main():
@@ -301,20 +366,7 @@ def main():
     set_chairs_on_lift(NUMBER_OF_CHAIRS_PER_KM)
 
 
-
-
-    print(station_down.rect.midleft[0] + 5, station_down.rect.midleft[1])
-    print(station_up.rect.midleft[0] + 5, station_up.rect.midleft[1])
-    print(station_down.rect.midright[0] - 3, station_down.rect.midright[1])
-
-
-
-
-
     while running:
-
-        global skiers_in_queue
-
 
 
         if counter % FREQUENCY == 0:
@@ -328,55 +380,7 @@ def main():
         screen.blit(BACKGROUND, (0,0))
 
 
-        for s in DRIVING_SKIERS:
-            screen.blit(s.picture, (s.rect.x, s.rect.y))
-            s.drive(5)
-
-        transporting_chairs = 0
-        for c in CHAIRS:
-            screen.blit(c.picture, (c.rect.x, c.rect.y))
-            c.move(LIFT_SPEED)
-            if c.direction == 0 and c.rect.x <= station_down.rect.x - 15:
-                transporting_chairs += 1
-
-        screen.blit(station_down.picture, (station_down.rect.x, station_down.rect.y))
-        screen.blit(station_up.picture, (station_up.rect.x, station_up.rect.y))
-
-        skiers_in_queue = 0
-        for s in WAITING_SKIERS:
-            screen.blit(s.picture, (s.rect.x, s.rect.y))
-            s.move(5)
-            if s.is_in_queue():
-                skiers_in_queue += 1
-
-
-
-        pygame.draw.line(screen, (0, 0, 0),
-                                     (station_down.rect.midleft[0] + 5, station_down.rect.midleft[1]),
-                                     (station_up.rect.midleft[0] + 5, station_up.rect.midleft[1]))
-        pygame.draw.line(screen, (0, 0, 0),
-                                      (station_down.rect.midright[0] - 3, station_down.rect.midright[1]),
-                                      (station_up.rect.midright[0] - 3, station_up.rect.midright[1]))
-
-        TEXT_MESSAGES_VALUES = []
-        TEXT_MESSAGES_VALUES.append(font.render(str(skiers_in_queue), True, (0, 0, 0)))
-        TEXT_MESSAGES_VALUES.append(font.render(str(skiers_transported), True, (0, 0, 0)))
-        TEXT_MESSAGES_VALUES.append(font.render(str(skiers_on_lift), True, (0, 0, 0)))
-        TEXT_MESSAGES_VALUES.append(font.render(str(skiers_on_lift / (transporting_chairs*CAPACITY) * 100)+" %", True, (0, 0, 0)))
-
-
-        position = 10
-        for t in TEXT_MESSAGES_TITLE:
-            screen.blit(t, pygame.Rect(20, position, 200, 30))
-            position += FONTSIZE + 10
-
-        position = 10
-        for t in TEXT_MESSAGES_VALUES:
-            screen.blit(t, pygame.Rect(350, position, 200, 30))
-            position += FONTSIZE + 10
-
-
-        pygame.display.update()
+        draw_screen(counter)
 
         if counter == MAX_FRAME:
             counter = 0
