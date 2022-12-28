@@ -26,7 +26,7 @@ FREQUENCY = 10
 MAX_FRAME = 301
 CAPACITY = 4
 LIFT_SPEED = 1
-NUMBER_OF_CHAIRS_PER_KM = 30
+NUMBER_OF_CHAIRS_PER_KM = 5
 
 
 SKIER_DIMENSIONS = (25, 30)
@@ -63,6 +63,7 @@ SKIER_PICTURES.append(SKIER_GREEN_PICTURE)
 skiers_in_queue = 0
 skiers_transported = 0
 skiers_on_lift = 0
+percent_of_lift_in_use = 0
 
 starting_point = 1600
 
@@ -72,7 +73,7 @@ CHAIRS = []
 WAITING_SKIERS = pygame.sprite.Group()
 DRIVING_SKIERS = pygame.sprite.Group()
 TEXT_MESSAGES_TITLE = []
-TEXT_MESSAGES_VALUES = [skiers_in_queue, skiers_transported, skiers_on_lift]
+TEXT_MESSAGES_VALUES = []
 
 
 
@@ -81,8 +82,8 @@ FONTSIZE = 20
 #font = pygame.font.Font(pygame.font.get_default_font(), FONTSIZE)
 font = pygame.font.SysFont('arial black', FONTSIZE)
 
-titles = ["Skifahrer in Warteschlange:", "Skifahrer transportiert:", "Skifahrer auf Lift:"]
-for i in range(3):
+titles = ["Skifahrer in Warteschlange:", "Skifahrer transportiert:", "Skifahrer auf Lift:", "Auslastung Lift:"]
+for i in range(len(titles)):
     text_message_title = font.render(titles[i], True, (0,0,0))
     TEXT_MESSAGES_TITLE.append(text_message_title)
 
@@ -331,9 +332,12 @@ def main():
             screen.blit(s.picture, (s.rect.x, s.rect.y))
             s.drive(5)
 
+        transporting_chairs = 0
         for c in CHAIRS:
             screen.blit(c.picture, (c.rect.x, c.rect.y))
             c.move(LIFT_SPEED)
+            if c.direction == 0 and c.rect.x <= station_down.rect.x - 15:
+                transporting_chairs += 1
 
         screen.blit(station_down.picture, (station_down.rect.x, station_down.rect.y))
         screen.blit(station_up.picture, (station_up.rect.x, station_up.rect.y))
@@ -354,9 +358,11 @@ def main():
                                       (station_down.rect.midright[0] - 3, station_down.rect.midright[1]),
                                       (station_up.rect.midright[0] - 3, station_up.rect.midright[1]))
 
-        TEXT_MESSAGES_VALUES[0] = font.render(str(skiers_in_queue), True, (0, 0, 0))
-        TEXT_MESSAGES_VALUES[1] = font.render(str(skiers_transported), True, (0, 0, 0))
-        TEXT_MESSAGES_VALUES[2] = font.render(str(skiers_on_lift), True, (0, 0, 0))
+        TEXT_MESSAGES_VALUES = []
+        TEXT_MESSAGES_VALUES.append(font.render(str(skiers_in_queue), True, (0, 0, 0)))
+        TEXT_MESSAGES_VALUES.append(font.render(str(skiers_transported), True, (0, 0, 0)))
+        TEXT_MESSAGES_VALUES.append(font.render(str(skiers_on_lift), True, (0, 0, 0)))
+        TEXT_MESSAGES_VALUES.append(font.render(str(skiers_on_lift / (transporting_chairs*CAPACITY) * 100)+" %", True, (0, 0, 0)))
 
 
         position = 10
