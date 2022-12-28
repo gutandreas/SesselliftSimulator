@@ -21,11 +21,11 @@ BLUE = (100, 100, 255)
 
 # Steuerungsvariablen
 running = True
-FPS = 25
-FREQUENCY = 10
+FPS = 20
+FREQUENCY = 5
 MAX_FRAME = 301
-CAPACITY = 4
-LIFT_SPEED = 1
+CAPACITY = 3
+LIFT_SPEED = 3
 NUMBER_OF_CHAIRS_PER_KM = 25
 
 
@@ -51,6 +51,8 @@ CHAIR_PICTURE_RIGHT = pygame.image.load(os.path.join("bilder", "sessel_seite.png
 CHAIR_PICTURE_RIGHT = pygame.transform.scale(CHAIR_PICTURE_RIGHT, (40, 40))
 CHAIR_PICTURE_LEFT = pygame.image.load(os.path.join("bilder", "sessel_seite_2.png"))
 CHAIR_PICTURE_LEFT = pygame.transform.scale(CHAIR_PICTURE_LEFT, (40, 40))
+POLE = pygame.image.load(os.path.join("bilder", "masten.png"))
+POLE = pygame.transform.scale(POLE, (100, 120))
 
 SKIER_PICTURES = []
 SKIER_PICTURES.append(SKIER_GREY_PICTURE)
@@ -84,11 +86,10 @@ FONTSIZE = 20
 font = pygame.font.SysFont('arial black', FONTSIZE)
 
 titles = ["Skifahrer in Warteschlange:", "Skifahrer transportiert:", "Skifahrer auf Lift:",
-          "Auslastung Lift:", "Durchschnittliche Wartezeit:"]
+          "Auslastung Lift:", "Durchschnittliche Wartezeit:", "Laufende Zeit:"]
 for i in range(len(titles)):
     text_message_title = font.render(titles[i], True, (0,0,0))
     TEXT_MESSAGES_TITLE.append(text_message_title)
-
 
 
 class Station(pygame.sprite.Sprite):
@@ -335,6 +336,11 @@ def draw_screen(counter):
                      (station_down.rect.midright[0] - 3, station_down.rect.midright[1]),
                      (station_up.rect.midright[0] - 3, station_up.rect.midright[1]))
 
+
+    screen.blit(POLE, (station_down.rect.midleft[0], station_down.rect.midleft[1] - 200))
+    screen.blit(POLE, (station_down.rect.midleft[0], station_down.rect.midleft[1] - 400))
+    screen.blit(POLE, (station_down.rect.midleft[0], station_down.rect.midleft[1] - 600))
+
     TEXT_MESSAGES_VALUES = []
     TEXT_MESSAGES_VALUES.append(font.render(str(skiers_in_queue), True, (0, 0, 0)))
     TEXT_MESSAGES_VALUES.append(font.render(str(skiers_transported), True, (0, 0, 0)))
@@ -342,6 +348,11 @@ def draw_screen(counter):
     TEXT_MESSAGES_VALUES.append(
         font.render(str(skiers_on_lift / (transporting_chairs * CAPACITY) * 100) + " %", True, (0, 0, 0)))
     TEXT_MESSAGES_VALUES.append(font.render(str(average_waiting_frames), True, (0, 0, 0)))
+    m, s = divmod(counter, 60)
+    h, m = divmod(m, 60)
+    TEXT_MESSAGES_VALUES.append(font.render(f'{h:d}:{m:02d}:{s:02d}', True, (0, 0, 0)))
+
+
 
     position = 10
     for t in TEXT_MESSAGES_TITLE:
@@ -382,8 +393,8 @@ def main():
 
         draw_screen(counter)
 
-        if counter == MAX_FRAME:
-            counter = 0
+        # if counter == MAX_FRAME:
+        #     counter = 0
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
