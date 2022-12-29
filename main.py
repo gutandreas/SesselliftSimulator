@@ -1,4 +1,4 @@
-
+import math
 import os
 import random
 from datetime import datetime
@@ -26,7 +26,9 @@ FREQUENCY = 5
 MAX_FRAME = 301
 CAPACITY = 3
 LIFT_SPEED = 3
-NUMBER_OF_CHAIRS_PER_KM = 25
+LIFT_LENGTH = 1.484
+NUMBER_OF_CHAIRS_PER_KM = 20
+NUMBER_OF_CHAIRS = math.ceil(NUMBER_OF_CHAIRS_PER_KM * LIFT_LENGTH)
 
 
 SKIER_DIMENSIONS = (25, 30)
@@ -86,7 +88,8 @@ FONTSIZE = 20
 font = pygame.font.SysFont('arial black', FONTSIZE)
 
 titles = ["Skifahrer in Warteschlange:", "Skifahrer transportiert:", "Skifahrer auf Lift:",
-          "Auslastung Lift:", "Durchschnittliche Wartezeit:", "Laufende Zeit:"]
+          "Auslastung Lift:", "Durchschnittliche Wartezeit:", "Laufende Zeit:", "Anzahl Sessel pro km:",
+          "Anzahl Sessel total:", "Liftgeschwindigkeit:"]
 for i in range(len(titles)):
     text_message_title = font.render(titles[i], True, (0,0,0))
     TEXT_MESSAGES_TITLE.append(text_message_title)
@@ -351,6 +354,9 @@ def draw_screen(counter):
     m, s = divmod(counter, 60)
     h, m = divmod(m, 60)
     TEXT_MESSAGES_VALUES.append(font.render(f'{h:d}:{m:02d}:{s:02d}', True, (0, 0, 0)))
+    TEXT_MESSAGES_VALUES.append(font.render(str(NUMBER_OF_CHAIRS_PER_KM), True, (0, 0, 0)))
+    TEXT_MESSAGES_VALUES.append(font.render(str(NUMBER_OF_CHAIRS), True, (0, 0, 0)))
+    TEXT_MESSAGES_VALUES.append(font.render(str(LIFT_SPEED), True, (0, 0, 0)))
 
 
 
@@ -374,7 +380,7 @@ def main():
     clock = pygame.time.Clock()
     counter = 0
 
-    set_chairs_on_lift(NUMBER_OF_CHAIRS_PER_KM)
+    set_chairs_on_lift(NUMBER_OF_CHAIRS)
 
 
     while running:
