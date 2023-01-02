@@ -45,15 +45,18 @@ running = True
 FPS = 20
 MAX_FRAME = 301
 CAPACITY = 4
+UTILISATION = 0.80
 LIFT_SPEED_KMH = 13
 LIFT_SPEED_PIXEL = math.ceil(LIFT_SPEED_KMH / 3.6)
 LIFT_LENGTH = 1.484
-NUMBER_OF_CHAIRS_PER_KM = 14
+NUMBER_OF_CHAIRS_PER_KM = 10
 NUMBER_OF_CHAIRS = math.ceil(NUMBER_OF_CHAIRS_PER_KM * LIFT_LENGTH)
 EXPECTED_SKIERS_PER_HOUR = 1000
 DIRECTION = "N"
 SKIERS_PER_HOUR = EXPECTED_SKIERS_PER_HOUR*FACTORS[column_dict[DIRECTION]][0]
 FREQUENCY = math.ceil(3600 / SKIERS_PER_HOUR)
+
+current_utilisation = 0
 
 
 # Zeiteinstellung
@@ -116,6 +119,7 @@ starting_point = 1600
 # Listen
 SKIERS = []
 CHAIRS = []
+TRANSPORTING_CHAIRS = []
 WAITING_SKIERS = pygame.sprite.Group()
 DRIVING_SKIERS = pygame.sprite.Group()
 TEXT_MESSAGES_TITLE = []
@@ -180,6 +184,8 @@ class Chair(pygame.sprite.Sprite):
         if self.direction == 0:
             if self.rect.y < station_up.rect.midleft[1]+5:
                 self.picture = CHAIR_PICTURE.copy()
+                if self in TRANSPORTING_CHAIRS:
+                    TRANSPORTING_CHAIRS.remove(self)
                 if len(self.skiers) > 0:
                     for s in self.skiers:
                         DRIVING_SKIERS.add(s)
@@ -208,15 +214,26 @@ class Chair(pygame.sprite.Sprite):
                     self.rect.y -= speed
                     self.picture = CHAIR_PICTURE.copy()
 
-                    position = 10
-                    for i in range(CAPACITY):
-                        if WAITING_SKIERS.sprites()[0].rect.x < station_down.rect.x+70:
-                            skier = WAITING_SKIERS.sprites()[0]
-                            self.skiers.append(skier)
-                            WAITING_SKIERS.remove(skier)
-                            pygame.draw.circle(self.picture, skier.get_color(), (position, self.picture.get_rect().center[1]+8), 3)
-                            position += 30/CAPACITY
-                            skiers_on_lift += 1
+
+                    if not self in TRANSPORTING_CHAIRS:
+                        global current_utilisation
+                        current_utilisation = skiers_on_lift / (len(TRANSPORTING_CHAIRS) * CAPACITY)
+                        TRANSPORTING_CHAIRS.append(self)
+
+                        if current_utilisation < UTILISATION:
+                            persons_to_transport = math.ceil(CAPACITY*UTILISATION)
+                        else:
+                            persons_to_transport = math.floor(CAPACITY*UTILISATION)
+
+                        position = 10
+                        for i in range(persons_to_transport):
+                            if WAITING_SKIERS.sprites()[0].rect.x < station_down.rect.x+70:
+                                skier = WAITING_SKIERS.sprites()[0]
+                                self.skiers.append(skier)
+                                WAITING_SKIERS.remove(skier)
+                                pygame.draw.circle(self.picture, skier.get_color(), (position, self.picture.get_rect().center[1]+8), 3)
+                                position += 30/CAPACITY
+                                skiers_on_lift += 1
 
             else:
                 self.rect.y += speed
@@ -328,8 +345,9 @@ def set_chairs_on_lift(number_of_chairs):
             x_current -= rest
 
         if direction == "a":
-            Chair(0, x_current, y_current, "front")
+            c = Chair(0, x_current, y_current, "front")
             y_current -= (distance)
+            TRANSPORTING_CHAIRS.append(c)
         if direction == "b":
             Chair(0, x_current, y_current, "right")
             x_current += (distance)
@@ -345,12 +363,9 @@ def draw_screen(counter):
         screen.blit(s.picture, (s.rect.x, s.rect.y))
         s.drive(5)
 
-    transporting_chairs = 0
     for c in CHAIRS:
         screen.blit(c.picture, (c.rect.x, c.rect.y))
         c.move(LIFT_SPEED_PIXEL)
-        if c.direction == 0 and c.rect.x <= station_down.rect.x - 15:
-            transporting_chairs += 1
 
     screen.blit(station_down.picture, (station_down.rect.x, station_down.rect.y))
     screen.blit(station_up.picture, (station_up.rect.x, station_up.rect.y))
@@ -359,7 +374,7 @@ def draw_screen(counter):
     waiting_sum = 0
     for s in WAITING_SKIERS:
         screen.blit(s.picture, (s.rect.x, s.rect.y))
-        s.move(5)
+        s.move(9)
         if s.is_in_queue():
             skiers_in_queue += 1
             s.waiting_frames += 1
@@ -392,7 +407,7 @@ def draw_screen(counter):
     TEXT_MESSAGES_VALUES.append(font.render(str(skiers_transported), True, (0, 0, 0)))
     TEXT_MESSAGES_VALUES.append(font.render(str(skiers_on_lift), True, (0, 0, 0)))
     TEXT_MESSAGES_VALUES.append(
-        font.render(str(skiers_on_lift / (transporting_chairs * CAPACITY) * 100) + " %", True, (0, 0, 0)))
+        font.render(str(current_utilisation * 100) + " %", True, (0, 0, 0)))
     TEXT_MESSAGES_VALUES.append(font.render(str(average_waiting_frames) + " min", True, (0, 0, 0)))
 
     global duration_as_string, time_as_string
@@ -474,7 +489,7 @@ def main():
 
 
         if counter % FREQUENCY == 0:
-            print("Skier", str(datetime.now().strftime("%H:%M:%S")))
+            #print("Skier", str(datetime.now().strftime("%H:%M:%S")))
             Skier()
 
         counter += 1
