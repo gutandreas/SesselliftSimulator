@@ -1,0 +1,88 @@
+Report zur Simulation von 02-01-2023, 16:30:04 des Users andreasgut
+Anzahl Sessel: 21, Fahrgeschwindigkeit: 13 km/h, Himmelsrichtung: N
+
+Dauer: 0:01:00
+Uhrzeit in Simulation: 11:59:00
+Transportierte Skifahrer: 0
+Skifahrer in Warteschlange: 0
+
+Dauer: 0:02:00
+Uhrzeit in Simulation: 12:00:00
+Transportierte Skifahrer: 0
+Skifahrer in Warteschlange: 0
+
+Dauer: 0:03:00
+Uhrzeit in Simulation: 12:01:00
+Transportierte Skifahrer: 0
+Skifahrer in Warteschlange: 0
+
+Dauer: 0:04:00
+Uhrzeit in Simulation: 12:02:00
+Transportierte Skifahrer: 0
+Skifahrer in Warteschlange: 0
+
+Dauer: 0:05:00
+Uhrzeit in Simulation: 12:03:00
+Transportierte Skifahrer: 1
+Skifahrer in Warteschlange: 0
+
+Dauer: 0:06:00
+Uhrzeit in Simulation: 12:04:00
+Transportierte Skifahrer: 5
+Skifahrer in Warteschlange: 0
+
+Dauer: 0:07:00
+Uhrzeit in Simulation: 12:05:00
+Transportierte Skifahrer: 9
+Skifahrer in Warteschlange: 0
+
+Dauer: 0:08:00
+Uhrzeit in Simulation: 12:06:00
+Transportierte Skifahrer: 25
+Skifahrer in Warteschlange: 0
+
+Dauer: 0:09:00
+Uhrzeit in Simulation: 12:07:00
+Transportierte Skifahrer: 37
+Skifahrer in Warteschlange: 0
+
+Dauer: 0:10:00
+Uhrzeit in Simulation: 12:08:00
+Transportierte Skifahrer: 53
+Skifahrer in Warteschlange: 0
+
+Dauer: 0:11:00
+Uhrzeit in Simulation: 12:09:00
+Transportierte Skifahrer: 65
+Skifahrer in Warteschlange: 0
+
+Dauer: 0:12:00
+Uhrzeit in Simulation: 12:10:00
+Transportierte Skifahrer: 77
+Skifahrer in Warteschlange: 0
+
+Dauer: 0:13:00
+Uhrzeit in Simulation: 12:11:00
+Transportierte Skifahrer: 93
+Skifahrer in Warteschlange: 0
+
+Dauer: 0:14:00
+Uhrzeit in Simulation: 12:12:00
+Transportierte Skifahrer: 105
+Skifahrer in Warteschlange: 0
+
+Dauer: 0:15:00
+Uhrzeit in Simulation: 12:13:00
+Transportierte Skifahrer: 117
+Skifahrer in Warteschlange: 0
+
+Dauer: 0:16:00
+Uhrzeit in Simulation: 12:14:00
+Transportierte Skifahrer: 133
+Skifahrer in Warteschlange: 0
+
+Dauer: 0:17:00
+Uhrzeit in Simulation: 12:15:00
+Transportierte Skifahrer: 145
+Skifahrer in Warteschlange: 0
+

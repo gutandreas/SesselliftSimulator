@@ -61,6 +61,14 @@ hours_start = 11
 minutes_start = 58
 seconds_start = 0
 
+report_interval_hours = 0
+report_interval_minutes = 1
+report_interval_seconds = 0
+report_interval = report_interval_hours * 3600 + report_interval_minutes * 60 + report_interval_seconds
+
+duration_as_string = ""
+time_as_string = ""
+
 
 
 
@@ -123,7 +131,7 @@ font = pygame.font.SysFont('arial black', FONTSIZE)
 titles = ["Skifahrer in Warteschlange:", "Skifahrer transportiert:", "Skifahrer auf Lift:",
           "Auslastung Lift:", "Durchschnittliche Wartezeit:", "Dauer der Simulation:", "Uhrzeit der Simlation:",
           "Anzahl Sessel pro km:",
-          "Anzahl Sessel total:", "Liftgeschwindigkeit:", "Sessel pro Minute:", "Kapazität pro Stunde:",
+          "Anzahl Sessel total:", "Liftgeschwindigkeit:", "Sessel pro Minute:", "Sitze pro Sessel:", "Kapazität pro Stunde:",
           "Neue Skifahrer pro Stunde:", "Himmelsrichtung Lift:"]
 for i in range(len(titles)):
     text_message_title = font.render(titles[i], True, (0,0,0))
@@ -387,17 +395,21 @@ def draw_screen(counter):
         font.render(str(skiers_on_lift / (transporting_chairs * CAPACITY) * 100) + " %", True, (0, 0, 0)))
     TEXT_MESSAGES_VALUES.append(font.render(str(average_waiting_frames), True, (0, 0, 0)))
 
+    global duration_as_string, time_as_string
     minutes, seconds = divmod(counter, 60)
     hours, minutes = divmod(minutes, 60)
-    TEXT_MESSAGES_VALUES.append(font.render(f'{hours:d}:{minutes:02d}:{seconds:02d}', True, (0, 0, 0)))
+    duration_as_string = f'{hours:d}:{minutes:02d}:{seconds:02d}'
+    TEXT_MESSAGES_VALUES.append(font.render(duration_as_string, True, (0, 0, 0)))
     minutes_time, seconds_time = divmod(counter + seconds_start, 60)
     hours_time, minutes_time = divmod(minutes_time + minutes_start, 60)
     days_time, hours_time = divmod(hours_time + hours_start, 24)
-    TEXT_MESSAGES_VALUES.append(font.render(f'{hours_time:d}:{minutes_time:02d}:{seconds_time:02d}', True, (0, 0, 0)))
+    time_as_string = f'{hours_time:d}:{minutes_time:02d}:{seconds_time:02d}'
+    TEXT_MESSAGES_VALUES.append(font.render(time_as_string, True, (0, 0, 0)))
     TEXT_MESSAGES_VALUES.append(font.render(str(NUMBER_OF_CHAIRS_PER_KM), True, (0, 0, 0)))
     TEXT_MESSAGES_VALUES.append(font.render(str(NUMBER_OF_CHAIRS), True, (0, 0, 0)))
     TEXT_MESSAGES_VALUES.append(font.render(str(LIFT_SPEED_KMH) + " km/h", True, (0, 0, 0)))
     TEXT_MESSAGES_VALUES.append(font.render(str(math.ceil(LIFT_SPEED_PIXEL/(1484/NUMBER_OF_CHAIRS) * 60)), True, (0, 0, 0)))
+    TEXT_MESSAGES_VALUES.append(font.render(str(CAPACITY), True, (0, 0, 0)))
     TEXT_MESSAGES_VALUES.append(font.render(str(math.ceil(LIFT_SPEED_PIXEL / (1484 / NUMBER_OF_CHAIRS) * 3600 * CAPACITY)), True, (0, 0, 0)))
     TEXT_MESSAGES_VALUES.append(font.render(str(math.ceil(3600/FREQUENCY)), True, (0, 0, 0)))
     TEXT_MESSAGES_VALUES.append(font.render(DIRECTION, True, (0, 0, 0)))
@@ -427,6 +439,19 @@ def draw_screen(counter):
 
     pygame.display.update()
 
+def save_report():
+
+    try:
+        file = open("report.txt", "a")
+        file.write( "Dauer: " + duration_as_string + "\n"
+                    + "Uhrzeit in Simulation: " + time_as_string + "\n"
+                    + "Transportierte Skifahrer: " + str(skiers_transported) + "\n"
+                    + "Skifahrer in Warteschlange: " + str(skiers_in_queue) + "\n\n")
+        file.close()
+        print("Report wurde gespeichert.")
+    except Exception as e:
+        print("Report konnte nicht gespeichert werden.")
+
 
 
 def main():
@@ -436,6 +461,13 @@ def main():
     counter = 0
 
     set_chairs_on_lift(NUMBER_OF_CHAIRS)
+
+    file = open("report.txt", "w")
+    file.write("Report zur Simulation von " + str(datetime.now().strftime("%d-%m-%Y, %H:%M:%S"))
+               + " des Users " + str(os.environ.get('USER')) + "\n"
+               + "Anzahl Sessel: " + str(len(CHAIRS)) + ", Fahrgeschwindigkeit: " + str(LIFT_SPEED_KMH) + " km/h"
+               + ", Himmelsrichtung: " + DIRECTION + "\n\n")
+    file.close()
 
 
     while running:
@@ -453,6 +485,9 @@ def main():
 
 
         draw_screen(counter)
+
+        if counter % report_interval == 0:
+            save_report()
 
 
         for event in pygame.event.get():
