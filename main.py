@@ -60,7 +60,7 @@ current_utilisation = 0
 
 
 # Zeiteinstellung
-hours_start = 11
+hours_start = 14
 minutes_start = 58
 seconds_start = 0
 
@@ -99,6 +99,8 @@ CHAIR_PICTURE_LEFT = pygame.image.load(os.path.join("bilder", "sessel_seite_2.pn
 CHAIR_PICTURE_LEFT = pygame.transform.scale(CHAIR_PICTURE_LEFT, (40, 40))
 POLE = pygame.image.load(os.path.join("bilder", "masten.png"))
 POLE = pygame.transform.scale(POLE, (100, 120))
+ZAUN = pygame.image.load(os.path.join("bilder", "zaun.png"))
+ZAUN = pygame.transform.scale(ZAUN, (250, 20))
 
 SKIER_PICTURES = []
 SKIER_PICTURES.append(SKIER_GREY_PICTURE)
@@ -227,7 +229,7 @@ class Chair(pygame.sprite.Sprite):
 
                         position = 10
                         for i in range(persons_to_transport):
-                            if WAITING_SKIERS.sprites()[0].rect.x < station_down.rect.x+70:
+                            if len(WAITING_SKIERS.sprites()) > 0 and WAITING_SKIERS.sprites()[0].rect.x < station_down.rect.x+70:
                                 skier = WAITING_SKIERS.sprites()[0]
                                 self.skiers.append(skier)
                                 WAITING_SKIERS.remove(skier)
@@ -374,11 +376,13 @@ def draw_screen(counter):
     waiting_sum = 0
     for s in WAITING_SKIERS:
         screen.blit(s.picture, (s.rect.x, s.rect.y))
-        s.move(9)
+        s.move(6)
         if s.is_in_queue():
             skiers_in_queue += 1
             s.waiting_frames += 1
             waiting_sum += s.waiting_frames
+
+    screen.blit(ZAUN, (station_down.rect.x-15, station_down.rect.y + 63))
 
     global average_waiting_frames, FREQUENCY
 
@@ -437,10 +441,15 @@ def draw_screen(counter):
         SKIERS_PER_HOUR = EXPECTED_SKIERS_PER_HOUR*FACTORS[column_dict[DIRECTION]][1]
     elif 12 <= hours_time <= 13:
         SKIERS_PER_HOUR = EXPECTED_SKIERS_PER_HOUR*FACTORS[column_dict[DIRECTION]][2]
-    else:
+    elif 14 <= hours_time <= 15:
         SKIERS_PER_HOUR = EXPECTED_SKIERS_PER_HOUR * FACTORS[column_dict[DIRECTION]][3]
+    else:
+        SKIERS_PER_HOUR = 0
 
-    FREQUENCY = math.ceil(3600/SKIERS_PER_HOUR)
+    if SKIERS_PER_HOUR == 0:
+        FREQUENCY = float("inf")
+    else:
+        FREQUENCY = math.ceil(3600/SKIERS_PER_HOUR)
 
     position = 10
     for t in TEXT_MESSAGES_TITLE:
