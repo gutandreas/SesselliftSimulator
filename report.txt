@@ -1,4 +1,4 @@
-Report zur Simulation von 02-01-2023, 18:47:47 des Users andreasgut
+Report zur Simulation von 02-01-2023, 18:48:18 des Users andreasgut
 Anzahl Sessel: 15, Fahrgeschwindigkeit: 13 km/h, Himmelsrichtung: N
 
 Dauer: 0:01:00

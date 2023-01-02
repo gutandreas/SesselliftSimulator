@@ -99,8 +99,8 @@ CHAIR_PICTURE_LEFT = pygame.image.load(os.path.join("bilder", "sessel_seite_2.pn
 CHAIR_PICTURE_LEFT = pygame.transform.scale(CHAIR_PICTURE_LEFT, (40, 40))
 POLE = pygame.image.load(os.path.join("bilder", "masten.png"))
 POLE = pygame.transform.scale(POLE, (100, 120))
-ZAUN = pygame.image.load(os.path.join("bilder", "zaun.png"))
-ZAUN = pygame.transform.scale(ZAUN, (250, 20))
+FENCE = pygame.image.load(os.path.join("bilder", "zaun.png"))
+FENCE = pygame.transform.scale(FENCE, (250, 20))
 
 SKIER_PICTURES = []
 SKIER_PICTURES.append(SKIER_GREY_PICTURE)
@@ -382,7 +382,7 @@ def draw_screen(counter):
             s.waiting_frames += 1
             waiting_sum += s.waiting_frames
 
-    screen.blit(ZAUN, (station_down.rect.x-15, station_down.rect.y + 63))
+    screen.blit(FENCE, (station_down.rect.x - 15, station_down.rect.y + 63))
 
     global average_waiting_frames, FREQUENCY
 
