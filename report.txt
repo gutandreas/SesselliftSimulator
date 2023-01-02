@@ -1,4 +1,4 @@
-Report zur Simulation von 02-01-2023, 16:30:04 des Users andreasgut
+Report zur Simulation von 02-01-2023, 17:18:49 des Users andreasgut
 Anzahl Sessel: 21, Fahrgeschwindigkeit: 13 km/h, Himmelsrichtung: N
 
 Dauer: 0:01:00
@@ -84,5 +84,135 @@ Skifahrer in Warteschlange: 0
 Dauer: 0:17:00
 Uhrzeit in Simulation: 12:15:00
 Transportierte Skifahrer: 145
+Skifahrer in Warteschlange: 0
+
+Dauer: 0:18:00
+Uhrzeit in Simulation: 12:16:00
+Transportierte Skifahrer: 161
+Skifahrer in Warteschlange: 0
+
+Dauer: 0:19:00
+Uhrzeit in Simulation: 12:17:00
+Transportierte Skifahrer: 173
+Skifahrer in Warteschlange: 0
+
+Dauer: 0:20:00
+Uhrzeit in Simulation: 12:18:00
+Transportierte Skifahrer: 185
+Skifahrer in Warteschlange: 0
+
+Dauer: 0:21:00
+Uhrzeit in Simulation: 12:19:00
+Transportierte Skifahrer: 201
+Skifahrer in Warteschlange: 0
+
+Dauer: 0:22:00
+Uhrzeit in Simulation: 12:20:00
+Transportierte Skifahrer: 213
+Skifahrer in Warteschlange: 0
+
+Dauer: 0:23:00
+Uhrzeit in Simulation: 12:21:00
+Transportierte Skifahrer: 225
+Skifahrer in Warteschlange: 0
+
+Dauer: 0:24:00
+Uhrzeit in Simulation: 12:22:00
+Transportierte Skifahrer: 241
+Skifahrer in Warteschlange: 0
+
+Dauer: 0:25:00
+Uhrzeit in Simulation: 12:23:00
+Transportierte Skifahrer: 253
+Skifahrer in Warteschlange: 0
+
+Dauer: 0:26:00
+Uhrzeit in Simulation: 12:24:00
+Transportierte Skifahrer: 265
+Skifahrer in Warteschlange: 0
+
+Dauer: 0:27:00
+Uhrzeit in Simulation: 12:25:00
+Transportierte Skifahrer: 281
+Skifahrer in Warteschlange: 0
+
+Dauer: 0:28:00
+Uhrzeit in Simulation: 12:26:00
+Transportierte Skifahrer: 293
+Skifahrer in Warteschlange: 0
+
+Dauer: 0:29:00
+Uhrzeit in Simulation: 12:27:00
+Transportierte Skifahrer: 309
+Skifahrer in Warteschlange: 0
+
+Dauer: 0:30:00
+Uhrzeit in Simulation: 12:28:00
+Transportierte Skifahrer: 321
+Skifahrer in Warteschlange: 0
+
+Dauer: 0:31:00
+Uhrzeit in Simulation: 12:29:00
+Transportierte Skifahrer: 333
+Skifahrer in Warteschlange: 0
+
+Dauer: 0:32:00
+Uhrzeit in Simulation: 12:30:00
+Transportierte Skifahrer: 349
+Skifahrer in Warteschlange: 0
+
+Dauer: 0:33:00
+Uhrzeit in Simulation: 12:31:00
+Transportierte Skifahrer: 361
+Skifahrer in Warteschlange: 0
+
+Dauer: 0:34:00
+Uhrzeit in Simulation: 12:32:00
+Transportierte Skifahrer: 373
+Skifahrer in Warteschlange: 0
+
+Dauer: 0:35:00
+Uhrzeit in Simulation: 12:33:00
+Transportierte Skifahrer: 389
+Skifahrer in Warteschlange: 0
+
+Dauer: 0:36:00
+Uhrzeit in Simulation: 12:34:00
+Transportierte Skifahrer: 401
+Skifahrer in Warteschlange: 0
+
+Dauer: 0:37:00
+Uhrzeit in Simulation: 12:35:00
+Transportierte Skifahrer: 417
+Skifahrer in Warteschlange: 0
+
+Dauer: 0:38:00
+Uhrzeit in Simulation: 12:36:00
+Transportierte Skifahrer: 429
+Skifahrer in Warteschlange: 0
+
+Dauer: 0:39:00
+Uhrzeit in Simulation: 12:37:00
+Transportierte Skifahrer: 441
+Skifahrer in Warteschlange: 0
+
+Dauer: 0:40:00
+Uhrzeit in Simulation: 12:38:00
+Transportierte Skifahrer: 457
+Skifahrer in Warteschlange: 0
+
+Dauer: 0:41:00
+Uhrzeit in Simulation: 12:39:00
+Transportierte Skifahrer: 469
+Skifahrer in Warteschlange: 0
+
+Dauer: 0:42:00
+Uhrzeit in Simulation: 12:40:00
+Transportierte Skifahrer: 481
+Skifahrer in Warteschlange: 0
+
+Dauer: 0:43:00
+Uhrzeit in Simulation: 12:41:00
+Transportierte Skifahrer: 497
 Skifahrer in Warteschlange: 0
 

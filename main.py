@@ -129,7 +129,7 @@ FONTSIZE = 20
 font = pygame.font.SysFont('arial black', FONTSIZE)
 
 titles = ["Skifahrer in Warteschlange:", "Skifahrer transportiert:", "Skifahrer auf Lift:",
-          "Auslastung Lift:", "Durchschnittliche Wartezeit:", "Dauer der Simulation:", "Uhrzeit der Simlation:",
+          "Auslastung Lift:", "Aktuelle Wartezeit:", "Dauer der Simulation:", "Uhrzeit der Simlation:",
           "Anzahl Sessel pro km:",
           "Anzahl Sessel total:", "Liftgeschwindigkeit:", "Sessel pro Minute:", "Sitze pro Sessel:", "Kapazität pro Stunde:",
           "Neue Skifahrer pro Stunde:", "Himmelsrichtung Lift:"]
@@ -369,7 +369,7 @@ def draw_screen(counter):
 
     if counter % FPS == 0:
         if skiers_in_queue > 0:
-            average_waiting_frames = waiting_sum/skiers_in_queue
+            average_waiting_frames = math.floor(skiers_in_queue/(LIFT_SPEED_PIXEL / (1484 / NUMBER_OF_CHAIRS) * CAPACITY * 60))
         else:
             average_waiting_frames = 0
 
@@ -393,7 +393,7 @@ def draw_screen(counter):
     TEXT_MESSAGES_VALUES.append(font.render(str(skiers_on_lift), True, (0, 0, 0)))
     TEXT_MESSAGES_VALUES.append(
         font.render(str(skiers_on_lift / (transporting_chairs * CAPACITY) * 100) + " %", True, (0, 0, 0)))
-    TEXT_MESSAGES_VALUES.append(font.render(str(average_waiting_frames), True, (0, 0, 0)))
+    TEXT_MESSAGES_VALUES.append(font.render(str(average_waiting_frames) + " min", True, (0, 0, 0)))
 
     global duration_as_string, time_as_string
     minutes, seconds = divmod(counter, 60)
