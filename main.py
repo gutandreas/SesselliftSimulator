@@ -20,15 +20,48 @@ GREEN = (100, 255, 100)
 BLUE = (100, 100, 255)
 
 # Steuerungsvariablen
+
+FACTORS = [[0.222,	0.222,	1.112,	1.112],
+[0.890,	0.444,	0.890,	0.890],
+[2.000,	0.666,	0.666,	0.666],
+[1.778,	1.778,	0.890,	0.444],
+[1.112,	3.333,	0.666,	0.222],
+[0.890,	1.778,	0.890,	0.890],
+[0.666,	0.666,	0.666,	2.000],
+[0.444,	0.444,	0.890,	1.778]]
+
+column_dict = {
+  "N": 0,
+  "NO": 1,
+  "O": 2,
+  "SO": 3,
+  "S": 4,
+  "SW": 5,
+  "W": 6,
+  "NW": 7
+}
+
 running = True
 FPS = 20
-FREQUENCY = 5
 MAX_FRAME = 301
-CAPACITY = 3
-LIFT_SPEED = 3
+CAPACITY = 4
+LIFT_SPEED_KMH = 13
+LIFT_SPEED_PIXEL = math.ceil(LIFT_SPEED_KMH / 3.6)
 LIFT_LENGTH = 1.484
-NUMBER_OF_CHAIRS_PER_KM = 20
+NUMBER_OF_CHAIRS_PER_KM = 14
 NUMBER_OF_CHAIRS = math.ceil(NUMBER_OF_CHAIRS_PER_KM * LIFT_LENGTH)
+EXPECTED_SKIERS_PER_HOUR = 1000
+DIRECTION = "N"
+SKIERS_PER_HOUR = EXPECTED_SKIERS_PER_HOUR*FACTORS[column_dict[DIRECTION]][0]
+FREQUENCY = math.ceil(3600 / SKIERS_PER_HOUR)
+
+
+# Zeiteinstellung
+hours_start = 11
+minutes_start = 58
+seconds_start = 0
+
+
 
 
 SKIER_DIMENSIONS = (25, 30)
@@ -88,8 +121,10 @@ FONTSIZE = 20
 font = pygame.font.SysFont('arial black', FONTSIZE)
 
 titles = ["Skifahrer in Warteschlange:", "Skifahrer transportiert:", "Skifahrer auf Lift:",
-          "Auslastung Lift:", "Durchschnittliche Wartezeit:", "Laufende Zeit:", "Anzahl Sessel pro km:",
-          "Anzahl Sessel total:", "Liftgeschwindigkeit:"]
+          "Auslastung Lift:", "Durchschnittliche Wartezeit:", "Dauer der Simulation:", "Uhrzeit der Simlation:",
+          "Anzahl Sessel pro km:",
+          "Anzahl Sessel total:", "Liftgeschwindigkeit:", "Sessel pro Minute:", "Kapazität pro Stunde:",
+          "Neue Skifahrer pro Stunde:", "Himmelsrichtung Lift:"]
 for i in range(len(titles)):
     text_message_title = font.render(titles[i], True, (0,0,0))
     TEXT_MESSAGES_TITLE.append(text_message_title)
@@ -305,7 +340,7 @@ def draw_screen(counter):
     transporting_chairs = 0
     for c in CHAIRS:
         screen.blit(c.picture, (c.rect.x, c.rect.y))
-        c.move(LIFT_SPEED)
+        c.move(LIFT_SPEED_PIXEL)
         if c.direction == 0 and c.rect.x <= station_down.rect.x - 15:
             transporting_chairs += 1
 
@@ -322,7 +357,7 @@ def draw_screen(counter):
             s.waiting_frames += 1
             waiting_sum += s.waiting_frames
 
-    global average_waiting_frames
+    global average_waiting_frames, FREQUENCY
 
     if counter % FPS == 0:
         if skiers_in_queue > 0:
@@ -351,14 +386,34 @@ def draw_screen(counter):
     TEXT_MESSAGES_VALUES.append(
         font.render(str(skiers_on_lift / (transporting_chairs * CAPACITY) * 100) + " %", True, (0, 0, 0)))
     TEXT_MESSAGES_VALUES.append(font.render(str(average_waiting_frames), True, (0, 0, 0)))
-    m, s = divmod(counter, 60)
-    h, m = divmod(m, 60)
-    TEXT_MESSAGES_VALUES.append(font.render(f'{h:d}:{m:02d}:{s:02d}', True, (0, 0, 0)))
+
+    minutes, seconds = divmod(counter, 60)
+    hours, minutes = divmod(minutes, 60)
+    TEXT_MESSAGES_VALUES.append(font.render(f'{hours:d}:{minutes:02d}:{seconds:02d}', True, (0, 0, 0)))
+    minutes_time, seconds_time = divmod(counter + seconds_start, 60)
+    hours_time, minutes_time = divmod(minutes_time + minutes_start, 60)
+    days_time, hours_time = divmod(hours_time + hours_start, 24)
+    TEXT_MESSAGES_VALUES.append(font.render(f'{hours_time:d}:{minutes_time:02d}:{seconds_time:02d}', True, (0, 0, 0)))
     TEXT_MESSAGES_VALUES.append(font.render(str(NUMBER_OF_CHAIRS_PER_KM), True, (0, 0, 0)))
     TEXT_MESSAGES_VALUES.append(font.render(str(NUMBER_OF_CHAIRS), True, (0, 0, 0)))
-    TEXT_MESSAGES_VALUES.append(font.render(str(LIFT_SPEED), True, (0, 0, 0)))
+    TEXT_MESSAGES_VALUES.append(font.render(str(LIFT_SPEED_KMH) + " km/h", True, (0, 0, 0)))
+    TEXT_MESSAGES_VALUES.append(font.render(str(math.ceil(LIFT_SPEED_PIXEL/(1484/NUMBER_OF_CHAIRS) * 60)), True, (0, 0, 0)))
+    TEXT_MESSAGES_VALUES.append(font.render(str(math.ceil(LIFT_SPEED_PIXEL / (1484 / NUMBER_OF_CHAIRS) * 3600 * CAPACITY)), True, (0, 0, 0)))
+    TEXT_MESSAGES_VALUES.append(font.render(str(math.ceil(3600/FREQUENCY)), True, (0, 0, 0)))
+    TEXT_MESSAGES_VALUES.append(font.render(DIRECTION, True, (0, 0, 0)))
 
 
+
+    if 8 <= hours_time <= 9:
+        SKIERS_PER_HOUR = EXPECTED_SKIERS_PER_HOUR*FACTORS[column_dict[DIRECTION]][0]
+    elif 10 <= hours_time <= 11:
+        SKIERS_PER_HOUR = EXPECTED_SKIERS_PER_HOUR*FACTORS[column_dict[DIRECTION]][1]
+    elif 12 <= hours_time <= 13:
+        SKIERS_PER_HOUR = EXPECTED_SKIERS_PER_HOUR*FACTORS[column_dict[DIRECTION]][2]
+    else:
+        SKIERS_PER_HOUR = EXPECTED_SKIERS_PER_HOUR * FACTORS[column_dict[DIRECTION]][3]
+
+    FREQUENCY = math.ceil(3600/SKIERS_PER_HOUR)
 
     position = 10
     for t in TEXT_MESSAGES_TITLE:
@@ -399,8 +454,6 @@ def main():
 
         draw_screen(counter)
 
-        # if counter == MAX_FRAME:
-        #     counter = 0
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
