@@ -46,13 +46,13 @@ FPS = 20
 MAX_FRAME = 301
 CAPACITY = 4
 UTILISATION = 0.80
-LIFT_SPEED_KMH = 15
+LIFT_SPEED_KMH = 13
 LIFT_SPEED_PIXEL = math.ceil(LIFT_SPEED_KMH / 3.6)
 LIFT_LENGTH = 1.484
 NUMBER_OF_CHAIRS_PER_KM = 15
 NUMBER_OF_CHAIRS = math.ceil(NUMBER_OF_CHAIRS_PER_KM * LIFT_LENGTH)
 EXPECTED_SKIERS_PER_HOUR = 1000
-DIRECTION = "S"
+DIRECTION = "N"
 SKIERS_PER_HOUR = EXPECTED_SKIERS_PER_HOUR*FACTORS[column_dict[DIRECTION]][0]
 FREQUENCY = math.ceil(3600 / SKIERS_PER_HOUR)
 
@@ -60,7 +60,7 @@ current_utilisation = 0
 
 
 # Zeiteinstellung
-hours_start = 13
+hours_start = 9
 minutes_start = 58
 seconds_start = 0
 
@@ -131,6 +131,7 @@ SKIERS = []
 CHAIRS = []
 TRANSPORTING_CHAIRS = []
 WAITING_SKIERS = pygame.sprite.Group()
+QUEUE_SKIERS = pygame.sprite.Group()
 DRIVING_SKIERS = pygame.sprite.Group()
 TEXT_MESSAGES_TITLE = []
 TEXT_MESSAGES_VALUES = []
@@ -244,6 +245,8 @@ class Chair(pygame.sprite.Sprite):
                                 pygame.draw.circle(self.picture, skier.get_color(), (position, self.picture.get_rect().center[1]+8), 3)
                                 position += 30/CAPACITY
                                 skiers_on_lift += 1
+                                if skier in QUEUE_SKIERS:
+                                    QUEUE_SKIERS.remove(skier)
 
             else:
                 self.rect.y += speed
@@ -285,6 +288,12 @@ class Skier(pygame.sprite.Sprite):
     def move(self, speed):
         if not self.rect.collidepoint(station_down.rect.x, station_down.rect.y+50) and self.is_way_free():
             self.rect.x -= speed
+        if self.is_in_queue():
+            QUEUE_SKIERS.add(self)
+        else:
+            if self in QUEUE_SKIERS:
+                QUEUE_SKIERS.remove(self)
+
 
     def is_way_free(self):
         point_to_check = self.rect.midleft
@@ -365,7 +374,7 @@ def update_text(counter):
     global FREQUENCY, hours_time, minutes_time, seconds_time, duration_as_string, time_as_string, expected_skiers
 
     TEXT_MESSAGES_VALUES = []
-    TEXT_MESSAGES_VALUES.append(font.render(str(skiers_in_queue), True, (0, 0, 0)))
+    TEXT_MESSAGES_VALUES.append(font.render(str(len(QUEUE_SKIERS.sprites())), True, (0, 0, 0)))
     TEXT_MESSAGES_VALUES.append(font.render(str(skiers_transported), True, (0, 0, 0)))
     TEXT_MESSAGES_VALUES.append(font.render(str(skiers_on_lift), True, (0, 0, 0)))
     TEXT_MESSAGES_VALUES.append(
@@ -429,7 +438,6 @@ def update_rate():
         SKIERS_PER_HOUR = EXPECTED_SKIERS_PER_HOUR * FACTORS[column_dict[DIRECTION]][0]
         counters_to_adjust_frequency[0] = counter
         time_phase_to_adjust_frequency = 0
-        print("Phase 0")
     elif get_current_phase() == 1:
         SKIERS_PER_HOUR = EXPECTED_SKIERS_PER_HOUR * FACTORS[column_dict[DIRECTION]][1]
         counters_to_adjust_frequency[1] = counter
@@ -475,7 +483,7 @@ def draw_screen(counter):
     waiting_sum = 0
     for s in WAITING_SKIERS:
         screen.blit(s.picture, (s.rect.x, s.rect.y))
-        s.move(6)
+        s.move(7)
         if s.is_in_queue():
             skiers_in_queue += 1
             s.waiting_frames += 1
