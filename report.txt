@@ -1,18 +1,28 @@
-Report zur Simulation von 02-01-2023, 18:48:18 des Users andreasgut
+Report zur Simulation von 03-01-2023, 15:19:36 des Users andreasgut
 Anzahl Sessel: 15, Fahrgeschwindigkeit: 13 km/h, Himmelsrichtung: N
 
 Dauer: 0:01:00
-Uhrzeit in Simulation: 14:59:00
+Uhrzeit in Simulation: 11:59:00
 Transportierte Skifahrer: 0
 Skifahrer in Warteschlange: 0
 
 Dauer: 0:02:00
-Uhrzeit in Simulation: 15:00:00
+Uhrzeit in Simulation: 12:00:00
 Transportierte Skifahrer: 0
 Skifahrer in Warteschlange: 0
 
 Dauer: 0:03:00
-Uhrzeit in Simulation: 15:01:00
+Uhrzeit in Simulation: 12:01:00
 Transportierte Skifahrer: 0
+Skifahrer in Warteschlange: 0
+
+Dauer: 0:04:00
+Uhrzeit in Simulation: 12:02:00
+Transportierte Skifahrer: 0
+Skifahrer in Warteschlange: 0
+
+Dauer: 0:05:00
+Uhrzeit in Simulation: 12:03:00
+Transportierte Skifahrer: 2
 Skifahrer in Warteschlange: 0
 
