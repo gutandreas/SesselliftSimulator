@@ -52,7 +52,7 @@ LIFT_LENGTH = 1.484
 NUMBER_OF_CHAIRS_PER_KM = 15
 NUMBER_OF_CHAIRS = math.ceil(NUMBER_OF_CHAIRS_PER_KM * LIFT_LENGTH)
 EXPECTED_SKIERS_PER_HOUR = 1000
-DIRECTION = "N"
+DIRECTION = "S"
 SKIERS_PER_HOUR = EXPECTED_SKIERS_PER_HOUR*FACTORS[column_dict[DIRECTION]][0]
 FREQUENCY = math.ceil(3600 / SKIERS_PER_HOUR)
 
@@ -60,7 +60,7 @@ current_utilisation = 0
 
 
 # Zeiteinstellung
-hours_start = 11
+hours_start = 13
 minutes_start = 58
 seconds_start = 0
 
@@ -303,27 +303,17 @@ class Skier(pygame.sprite.Sprite):
             return False
 
     def drive(self, speed):
-        point_to_check = self.rect.midleft
-        collision_with = pygame.sprite.spritecollide(self, DRIVING_SKIERS, False)
-        collision_with.remove(self)
-        way_free = True
-
-        for c in collision_with:
-            if c.rect.collidepoint(point_to_check):
-                way_free = False
-
-        if way_free:
-            if self.rect.x > 850:
-                self.rect.x -= speed
-            else:
-                self.rect.x -= speed*2
-                self.rect.y += speed*2
-                if not self.rotated:
-                    self.picture = pygame.transform.rotate(self.picture, 45)
-                    self.rect.x -= 5
-                    self.rotated = True
-            if self.rect.y > 335:
-                self.remove(DRIVING_SKIERS)
+        if self.rect.x > 850:
+            self.rect.x -= speed
+        else:
+            self.rect.x -= speed*2
+            self.rect.y += speed*2
+            if not self.rotated:
+                self.picture = pygame.transform.rotate(self.picture, 45)
+                self.rect.x -= 5
+                self.rotated = True
+        if self.rect.y > 335:
+            self.remove(DRIVING_SKIERS)
 
 def set_chairs_on_lift(number_of_chairs):
 
@@ -456,9 +446,9 @@ def update_rate():
     elif get_current_phase() == 3:
         SKIERS_PER_HOUR = EXPECTED_SKIERS_PER_HOUR * FACTORS[column_dict[DIRECTION]][3]
         counters_to_adjust_frequency[3] = counter
-        if time_phase_to_adjust_frequency != 2:
+        if time_phase_to_adjust_frequency != 3:
             print("Phase 3")
-            time_phase_to_adjust_frequency = 2
+            time_phase_to_adjust_frequency = 3
             skier_counter_to_adjust_frequency = 0
     else:
         SKIERS_PER_HOUR = 0
