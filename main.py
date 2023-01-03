@@ -120,6 +120,7 @@ skiers_on_lift = 0
 percent_of_lift_in_use = 0
 average_waiting_frames = 0
 skier_counter_to_adjust_frequency = 0
+expected_skiers = 0
 counters_to_adjust_frequency = [0,0,0,0]
 time_phase_to_adjust_frequency = 0
 starting_point = 1600
@@ -361,7 +362,7 @@ def set_chairs_on_lift(number_of_chairs):
 
 def update_text(counter):
 
-    global FREQUENCY, hours_time, minutes_time, seconds_time, duration_as_string, time_as_string
+    global FREQUENCY, hours_time, minutes_time, seconds_time, duration_as_string, time_as_string, expected_skiers
 
     TEXT_MESSAGES_VALUES = []
     TEXT_MESSAGES_VALUES.append(font.render(str(skiers_in_queue), True, (0, 0, 0)))
@@ -388,7 +389,7 @@ def update_text(counter):
     TEXT_MESSAGES_VALUES.append(font.render(str(CAPACITY), True, (0, 0, 0)))
     TEXT_MESSAGES_VALUES.append(
         font.render(str(math.ceil(LIFT_SPEED_PIXEL / (1484 / NUMBER_OF_CHAIRS) * 3600 * CAPACITY)), True, (0, 0, 0)))
-    TEXT_MESSAGES_VALUES.append(font.render(str(math.ceil(skier_counter_to_adjust_frequency/counter*3600)), True, (0, 0, 0)))
+    TEXT_MESSAGES_VALUES.append(font.render(str(math.floor(expected_skiers)), True, (0, 0, 0)))
     TEXT_MESSAGES_VALUES.append(
         font.render(str(math.ceil(SKIERS_PER_HOUR)), True, (0, 0, 0)))
     TEXT_MESSAGES_VALUES.append(font.render(DIRECTION, True, (0, 0, 0)))
@@ -526,7 +527,7 @@ def save_report():
 
 
 def main():
-    global screen, running, FREQUENCY, counter, time_phase_to_adjust_frequency
+    global screen, running, FREQUENCY, counter, time_phase_to_adjust_frequency, expected_skiers
 
     clock = pygame.time.Clock()
 
@@ -560,14 +561,17 @@ def main():
             else:
                 current_counter = counter
 
-            if skier_counter_to_adjust_frequency/current_counter < SKIERS_PER_HOUR/3600:
+            skiers_in_future = ((7200-current_counter)/FREQUENCY)/2
+            expected_skiers = skier_counter_to_adjust_frequency + skiers_in_future
+
+            if expected_skiers < SKIERS_PER_HOUR:
                 if FREQUENCY != 1:
                     FREQUENCY -= 1
                     print("Häufigkeit erhöht", FREQUENCY)
             else:
                 FREQUENCY += 1
                 print("Häufigkeit vertieft: ", FREQUENCY)
-            print("Aktuelle Skier pro Stunde: ", skier_counter_to_adjust_frequency / counter * 3600)
+            print("Aktuelle Skier pro Stunde: ", expected_skiers)
             print("Soll Skier pro Stunde: ", SKIERS_PER_HOUR)
             print("Aktueller Counter: ", current_counter)
 
