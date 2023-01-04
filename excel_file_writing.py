@@ -31,6 +31,7 @@ df = df.astype({titels[4]:'float'})
 df = df.astype({titels[5]:'float'})
 df = df.astype({titels[6]:'float'})
 df = df.astype({titels[7]:'float'})
+df = df.astype({titels[8]:'float'})
 
 print(df)
 
@@ -51,6 +52,8 @@ chart_skiers_in_queue.set_x_axis({'name': titels[1], 'num_font':  {'rotation': 9
 chart_utilisation = workbook.add_chart({'type': 'line'})
 chart_utilisation.set_x_axis({'name': titels[1], 'num_font':  {'rotation': 90}})
 
+chart_skiers_per_hour = workbook.add_chart({'type': 'line'})
+chart_skiers_per_hour.set_x_axis({'name': titels[1], 'num_font':  {'rotation': 90}})
 
 
 # Get the dimensions of the dataframe.
@@ -70,9 +73,17 @@ chart_utilisation.add_series({'name': titels[5], 'categories': ['Simulationsdate
                                   'values': ['Simulationsdaten', 1, 6, max_row, 6],
                                   'line': {'color': '#aaaaff'}})
 
+chart_skiers_per_hour.add_series({'name': titels[7], 'categories': ['Simulationsdaten', 1, 2, max_row, 2],
+                                  'values': ['Simulationsdaten', 1, 8, max_row, 8],
+                                  'line': {'color': '#109910'}})
+chart_skiers_per_hour.add_series({'name': titels[8], 'categories': ['Simulationsdaten', 1, 2, max_row, 2],
+                                  'values': ['Simulationsdaten', 1, 9, max_row, 9],
+                                  'line': {'color': '#bbbbbb'}})
+
 # Insert the chart into the worksheet.
 worksheet.insert_chart(0, max_col + 2, chart_transported_skiers)
 worksheet.insert_chart(16, max_col + 2, chart_skiers_in_queue)
 worksheet.insert_chart(32, max_col + 2, chart_utilisation)
+worksheet.insert_chart(48, max_col + 2, chart_skiers_per_hour)
 
 writer.close()
