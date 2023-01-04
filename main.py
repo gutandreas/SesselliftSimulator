@@ -44,7 +44,7 @@ column_dict = {
 running = True
 FPS = 50
 MAX_FRAME = 301
-CAPACITY = 4
+CAPACITY = 5
 UTILISATION = 0.80
 LIFT_SPEED_KMH = 13
 LIFT_SPEED_PIXEL = math.ceil(LIFT_SPEED_KMH / 3.6)
@@ -60,8 +60,8 @@ current_utilisation = 0
 
 
 # Zeiteinstellung
-hours_start = 8
-minutes_start = 0
+hours_start = 9
+minutes_start = 55
 seconds_start = 0
 
 hours_time = 0
@@ -528,7 +528,11 @@ def save_report():
                     + "Transportierte Skifahrer: " + str(skiers_transported) + "\n"
                     + "Skifahrer in Warteschlange: " + str(len(QUEUE_SKIERS)) + "\n"
                     + "Liftauslastung tatsaechlich: " + str(current_utilisation) + "\n"
-                    + "Liftauslastung angenommen: " + str(UTILISATION) + "\n\n")
+                    + "Liftauslastung angenommen: " + str(UTILISATION) + "\n"
+                    + "Ueber/unter Kapazität: " + str(math.ceil(LIFT_SPEED_PIXEL / (1484 / NUMBER_OF_CHAIRS) * 3600 * CAPACITY*UTILISATION)) + "\n"
+                    + "Skifahrer pro Stunde (real): " + str(expected_skiers/2) + "\n"
+                    + "Skifahrer pro Stunde (soll): " + str(math.ceil(SKIERS_PER_HOUR)) +
+                    "\n\n")
         file.close()
         print("Report wurde gespeichert.")
     except Exception as e:

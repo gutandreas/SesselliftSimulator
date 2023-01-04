@@ -29,6 +29,8 @@ df = df.astype({titels[2]:'int'})
 df = df.astype({titels[3]:'int'})
 df = df.astype({titels[4]:'float'})
 df = df.astype({titels[5]:'float'})
+df = df.astype({titels[6]:'float'})
+df = df.astype({titels[7]:'float'})
 
 print(df)
 
@@ -66,7 +68,7 @@ chart_utilisation.add_series({'name': titels[4], 'categories': ['Simulationsdate
                                   'line': {'color': '#000000'}})
 chart_utilisation.add_series({'name': titels[5], 'categories': ['Simulationsdaten', 1, 2, max_row, 2],
                                   'values': ['Simulationsdaten', 1, 6, max_row, 6],
-                                  'line': {'color': '#aaaaaa'}})
+                                  'line': {'color': '#aaaaff'}})
 
 # Insert the chart into the worksheet.
 worksheet.insert_chart(0, max_col + 2, chart_transported_skiers)
