@@ -46,13 +46,13 @@ FPS = 20
 MAX_FRAME = 301
 CAPACITY = 4
 UTILISATION = 0.80
-LIFT_SPEED_KMH = 13
+LIFT_SPEED_KMH = 10
 LIFT_SPEED_PIXEL = math.ceil(LIFT_SPEED_KMH / 3.6)
 LIFT_LENGTH = 1.484
 NUMBER_OF_CHAIRS_PER_KM = 15
 NUMBER_OF_CHAIRS = math.ceil(NUMBER_OF_CHAIRS_PER_KM * LIFT_LENGTH)
 EXPECTED_SKIERS_PER_HOUR = 1000
-DIRECTION = "N"
+DIRECTION = "S"
 SKIERS_PER_HOUR = EXPECTED_SKIERS_PER_HOUR*FACTORS[column_dict[DIRECTION]][0]
 FREQUENCY = math.ceil(3600 / SKIERS_PER_HOUR)
 
@@ -60,7 +60,7 @@ current_utilisation = 0
 
 
 # Zeiteinstellung
-hours_start = 9
+hours_start = 10
 minutes_start = 58
 seconds_start = 0
 
@@ -526,7 +526,7 @@ def save_report():
         file.write( "Dauer: " + duration_as_string + "\n"
                     + "Uhrzeit in Simulation: " + time_as_string + "\n"
                     + "Transportierte Skifahrer: " + str(skiers_transported) + "\n"
-                    + "Skifahrer in Warteschlange: " + str(skiers_in_queue) + "\n\n")
+                    + "Skifahrer in Warteschlange: " + str(len(QUEUE_SKIERS)) + "\n\n")
         file.close()
         print("Report wurde gespeichert.")
     except Exception as e:
