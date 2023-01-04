@@ -397,7 +397,7 @@ def update_text(counter):
         font.render(str(math.ceil(LIFT_SPEED_PIXEL / (1484 / NUMBER_OF_CHAIRS) * 60)), True, (0, 0, 0)))
     TEXT_MESSAGES_VALUES.append(font.render(str(CAPACITY), True, (0, 0, 0)))
     TEXT_MESSAGES_VALUES.append(
-        font.render(str(math.ceil(LIFT_SPEED_PIXEL / (1484 / NUMBER_OF_CHAIRS) * 3600 * CAPACITY)), True, (0, 0, 0)))
+        font.render(str(math.ceil(LIFT_SPEED_PIXEL / (1484 / NUMBER_OF_CHAIRS) * 3600 * CAPACITY*UTILISATION)), True, (0, 0, 0)))
     TEXT_MESSAGES_VALUES.append(font.render(str(math.floor(expected_skiers/2)), True, (0, 0, 0)))
     TEXT_MESSAGES_VALUES.append(
         font.render(str(math.ceil(SKIERS_PER_HOUR)), True, (0, 0, 0)))
