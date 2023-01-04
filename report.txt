@@ -1,53 +1,157 @@
-Report zur Simulation von 04-01-2023, 17:02:39 des Users andreasgut
+Report zur Simulation von 04-01-2023, 18:11:44 des Users andreasgut
 Anzahl Sessel: 23, Fahrgeschwindigkeit: 10 km/h, Himmelsrichtung: S
 
 Dauer: 0:01:00
-Uhrzeit in Simulation: 10:59:00
+Uhrzeit in Simulation: 13:51:00
 Transportierte Skifahrer: 0
-Skifahrer in Warteschlange: 8
+Skifahrer in Warteschlange: 0
+Liftauslastung tatsaechlich: 0.0
+Liftauslastung angenommen: 0.8
 
 Dauer: 0:02:00
-Uhrzeit in Simulation: 11:00:00
+Uhrzeit in Simulation: 13:52:00
 Transportierte Skifahrer: 0
-Skifahrer in Warteschlange: 53
+Skifahrer in Warteschlange: 0
+Liftauslastung tatsaechlich: 0.1
+Liftauslastung angenommen: 0.8
 
 Dauer: 0:03:00
-Uhrzeit in Simulation: 11:01:00
+Uhrzeit in Simulation: 13:53:00
 Transportierte Skifahrer: 0
-Skifahrer in Warteschlange: 90
+Skifahrer in Warteschlange: 3
+Liftauslastung tatsaechlich: 0.3
+Liftauslastung angenommen: 0.8
 
 Dauer: 0:04:00
-Uhrzeit in Simulation: 11:02:00
+Uhrzeit in Simulation: 13:54:00
 Transportierte Skifahrer: 0
-Skifahrer in Warteschlange: 123
+Skifahrer in Warteschlange: 1
+Liftauslastung tatsaechlich: 0.6
+Liftauslastung angenommen: 0.8
 
 Dauer: 0:05:00
-Uhrzeit in Simulation: 11:03:00
+Uhrzeit in Simulation: 13:55:00
 Transportierte Skifahrer: 0
-Skifahrer in Warteschlange: 158
+Skifahrer in Warteschlange: 3
+Liftauslastung tatsaechlich: 0.875
+Liftauslastung angenommen: 0.8
 
 Dauer: 0:06:00
-Uhrzeit in Simulation: 11:04:00
+Uhrzeit in Simulation: 13:56:00
 Transportierte Skifahrer: 12
-Skifahrer in Warteschlange: 194
+Skifahrer in Warteschlange: 10
+Liftauslastung tatsaechlich: 0.8888888888888888
+Liftauslastung angenommen: 0.8
 
 Dauer: 0:07:00
-Uhrzeit in Simulation: 11:05:00
+Uhrzeit in Simulation: 13:57:00
 Transportierte Skifahrer: 20
-Skifahrer in Warteschlange: 230
+Skifahrer in Warteschlange: 15
+Liftauslastung tatsaechlich: 0.825
+Liftauslastung angenommen: 0.8
 
 Dauer: 0:08:00
-Uhrzeit in Simulation: 11:06:00
+Uhrzeit in Simulation: 13:58:00
 Transportierte Skifahrer: 32
-Skifahrer in Warteschlange: 268
+Skifahrer in Warteschlange: 21
+Liftauslastung tatsaechlich: 0.8
+Liftauslastung angenommen: 0.8
 
 Dauer: 0:09:00
-Uhrzeit in Simulation: 11:07:00
+Uhrzeit in Simulation: 13:59:00
 Transportierte Skifahrer: 41
-Skifahrer in Warteschlange: 303
+Skifahrer in Warteschlange: 23
+Liftauslastung tatsaechlich: 0.8
+Liftauslastung angenommen: 0.8
 
 Dauer: 0:10:00
-Uhrzeit in Simulation: 11:08:00
+Uhrzeit in Simulation: 14:00:00
 Transportierte Skifahrer: 50
-Skifahrer in Warteschlange: 339
+Skifahrer in Warteschlange: 28
+Liftauslastung tatsaechlich: 0.8
+Liftauslastung angenommen: 0.8
+
+Dauer: 0:11:00
+Uhrzeit in Simulation: 14:01:00
+Transportierte Skifahrer: 60
+Skifahrer in Warteschlange: 30
+Liftauslastung tatsaechlich: 0.8
+Liftauslastung angenommen: 0.8
+
+Dauer: 0:12:00
+Uhrzeit in Simulation: 14:02:00
+Transportierte Skifahrer: 67
+Skifahrer in Warteschlange: 30
+Liftauslastung tatsaechlich: 0.8
+Liftauslastung angenommen: 0.8
+
+Dauer: 0:13:00
+Uhrzeit in Simulation: 14:03:00
+Transportierte Skifahrer: 76
+Skifahrer in Warteschlange: 25
+Liftauslastung tatsaechlich: 0.8055555555555556
+Liftauslastung angenommen: 0.8
+
+Dauer: 0:14:00
+Uhrzeit in Simulation: 14:04:00
+Transportierte Skifahrer: 85
+Skifahrer in Warteschlange: 18
+Liftauslastung tatsaechlich: 0.8
+Liftauslastung angenommen: 0.8
+
+Dauer: 0:15:00
+Uhrzeit in Simulation: 14:05:00
+Transportierte Skifahrer: 95
+Skifahrer in Warteschlange: 11
+Liftauslastung tatsaechlich: 0.7777777777777778
+Liftauslastung angenommen: 0.8
+
+Dauer: 0:16:00
+Uhrzeit in Simulation: 14:06:00
+Transportierte Skifahrer: 105
+Skifahrer in Warteschlange: 3
+Liftauslastung tatsaechlich: 0.8
+Liftauslastung angenommen: 0.8
+
+Dauer: 0:17:00
+Uhrzeit in Simulation: 14:07:00
+Transportierte Skifahrer: 111
+Skifahrer in Warteschlange: 1
+Liftauslastung tatsaechlich: 0.8
+Liftauslastung angenommen: 0.8
+
+Dauer: 0:18:00
+Uhrzeit in Simulation: 14:08:00
+Transportierte Skifahrer: 120
+Skifahrer in Warteschlange: 0
+Liftauslastung tatsaechlich: 0.75
+Liftauslastung angenommen: 0.8
+
+Dauer: 0:19:00
+Uhrzeit in Simulation: 14:09:00
+Transportierte Skifahrer: 130
+Skifahrer in Warteschlange: 0
+Liftauslastung tatsaechlich: 0.575
+Liftauslastung angenommen: 0.8
+
+Dauer: 0:20:00
+Uhrzeit in Simulation: 14:10:00
+Transportierte Skifahrer: 140
+Skifahrer in Warteschlange: 0
+Liftauslastung tatsaechlich: 0.4
+Liftauslastung angenommen: 0.8
+
+Dauer: 0:21:00
+Uhrzeit in Simulation: 14:11:00
+Transportierte Skifahrer: 146
+Skifahrer in Warteschlange: 0
+Liftauslastung tatsaechlich: 0.3
+Liftauslastung angenommen: 0.8
+
+Dauer: 0:22:00
+Uhrzeit in Simulation: 14:12:00
+Transportierte Skifahrer: 149
+Skifahrer in Warteschlange: 0
+Liftauslastung tatsaechlich: 0.3055555555555556
+Liftauslastung angenommen: 0.8
 

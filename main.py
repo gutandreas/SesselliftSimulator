@@ -60,8 +60,8 @@ current_utilisation = 0
 
 
 # Zeiteinstellung
-hours_start = 10
-minutes_start = 58
+hours_start = 13
+minutes_start = 50
 seconds_start = 0
 
 hours_time = 0
@@ -526,7 +526,9 @@ def save_report():
         file.write( "Dauer: " + duration_as_string + "\n"
                     + "Uhrzeit in Simulation: " + time_as_string + "\n"
                     + "Transportierte Skifahrer: " + str(skiers_transported) + "\n"
-                    + "Skifahrer in Warteschlange: " + str(len(QUEUE_SKIERS)) + "\n\n")
+                    + "Skifahrer in Warteschlange: " + str(len(QUEUE_SKIERS)) + "\n"
+                    + "Liftauslastung tatsaechlich: " + str(current_utilisation) + "\n"
+                    + "Liftauslastung angenommen: " + str(UTILISATION) + "\n\n")
         file.close()
         print("Report wurde gespeichert.")
     except Exception as e:
