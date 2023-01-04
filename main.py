@@ -42,7 +42,7 @@ column_dict = {
 }
 
 running = True
-FPS = 20
+FPS = 50
 MAX_FRAME = 301
 CAPACITY = 4
 UTILISATION = 0.80
@@ -398,7 +398,7 @@ def update_text(counter):
     TEXT_MESSAGES_VALUES.append(font.render(str(CAPACITY), True, (0, 0, 0)))
     TEXT_MESSAGES_VALUES.append(
         font.render(str(math.ceil(LIFT_SPEED_PIXEL / (1484 / NUMBER_OF_CHAIRS) * 3600 * CAPACITY)), True, (0, 0, 0)))
-    TEXT_MESSAGES_VALUES.append(font.render(str(math.floor(expected_skiers)), True, (0, 0, 0)))
+    TEXT_MESSAGES_VALUES.append(font.render(str(math.floor(expected_skiers/2)), True, (0, 0, 0)))
     TEXT_MESSAGES_VALUES.append(
         font.render(str(math.ceil(SKIERS_PER_HOUR)), True, (0, 0, 0)))
     TEXT_MESSAGES_VALUES.append(font.render(DIRECTION, True, (0, 0, 0)))
@@ -571,10 +571,10 @@ def main():
             else:
                 current_counter = counter
 
-            skiers_in_future = ((7200-current_counter)/FREQUENCY)/2
+            skiers_in_future = ((7200-current_counter)/FREQUENCY)
             expected_skiers = skier_counter_to_adjust_frequency + skiers_in_future
 
-            if expected_skiers < SKIERS_PER_HOUR:
+            if expected_skiers < SKIERS_PER_HOUR*2:
                 if FREQUENCY != 1:
                     FREQUENCY -= 1
                     print("Häufigkeit erhöht", FREQUENCY)
