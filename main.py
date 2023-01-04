@@ -46,13 +46,13 @@ FPS = 20
 MAX_FRAME = 301
 CAPACITY = 4
 UTILISATION = 0.80
-LIFT_SPEED_KMH = 10
+LIFT_SPEED_KMH = 13
 LIFT_SPEED_PIXEL = math.ceil(LIFT_SPEED_KMH / 3.6)
 LIFT_LENGTH = 1.484
 NUMBER_OF_CHAIRS_PER_KM = 15
 NUMBER_OF_CHAIRS = math.ceil(NUMBER_OF_CHAIRS_PER_KM * LIFT_LENGTH)
 EXPECTED_SKIERS_PER_HOUR = 1000
-DIRECTION = "S"
+DIRECTION = "SW"
 SKIERS_PER_HOUR = EXPECTED_SKIERS_PER_HOUR*FACTORS[column_dict[DIRECTION]][0]
 FREQUENCY = math.ceil(3600 / SKIERS_PER_HOUR)
 
@@ -60,8 +60,8 @@ current_utilisation = 0
 
 
 # Zeiteinstellung
-hours_start = 13
-minutes_start = 50
+hours_start = 8
+minutes_start = 0
 seconds_start = 0
 
 hours_time = 0
