@@ -42,6 +42,8 @@ df = df.astype({titels[6]:'float'})
 df = df.astype({titels[7]:'float'})
 df = df.astype({titels[8]:'float'})
 df = df.astype({titels[9]:'int'})
+df = df.astype({titels[10]:'int'})
+
 
 print(df)
 
@@ -63,13 +65,17 @@ worksheet.write("A1", title, format_title)
 worksheet.write("A2", informations, format_informations)
 
 
+x_zoom_factor = 1.5
 
 # Create a chart object.
 chart_transported_skiers = workbook.add_chart({'type': 'line'})
 chart_transported_skiers.set_x_axis({'name': titels[1], 'num_font':  {'rotation': 90}})
+chart_transported_skiers.set_size({'x_scale': x_zoom_factor})
 
 chart_skiers_in_queue = workbook.add_chart({'type': 'line'})
 chart_skiers_in_queue.set_x_axis({'name': titels[1], 'num_font':  {'rotation': 90}})
+chart_skiers_in_queue.set_title({'name': 'Skifahrer in Warteschlange'})
+chart_skiers_in_queue.set_size({'x_scale': x_zoom_factor})
 
 chart_skiers_in_queue_duration = workbook.add_chart({'type': 'line'})
 chart_skiers_in_queue_duration.set_x_axis({'name': titels[1], 'num_font':  {'rotation': 90}})
@@ -77,17 +83,21 @@ chart_skiers_in_queue_duration.set_x_axis({'name': titels[1], 'num_font':  {'rot
 chart_utilisation = workbook.add_chart({'type': 'line'})
 chart_utilisation.set_x_axis({'name': titels[1], 'num_font':  {'rotation': 90}})
 chart_utilisation.set_title({'name': 'Liftauslastung'})
+chart_utilisation.set_size({'x_scale': x_zoom_factor})
 
 chart_capacity_vs_demand = workbook.add_chart({'type': 'line'})
 chart_capacity_vs_demand.set_x_axis({'name': titels[1], 'num_font':  {'rotation': 90}})
 chart_capacity_vs_demand.set_title({'name': 'Differenz Nachfrage/Kapazität'})
+chart_capacity_vs_demand.set_size({'x_scale': x_zoom_factor})
 
 chart_skiers_per_hour = workbook.add_chart({'type': 'line'})
 chart_skiers_per_hour.set_x_axis({'name': titels[1], 'num_font':  {'rotation': 90}})
 chart_skiers_per_hour.set_title({'name': 'Skifahrer pro Stunde'})
+chart_skiers_per_hour.set_size({'x_scale': x_zoom_factor})
 
 chart_lost_skier = workbook.add_chart({'type': 'line'})
 chart_lost_skier.set_x_axis({'name': titels[1], 'num_font':  {'rotation': 90}})
+chart_lost_skier.set_size({'x_scale': x_zoom_factor})
 
 # Get the dimensions of the dataframe.
 (max_row, max_col) = df.shape

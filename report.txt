@@ -1,3 +1,51 @@
-Report zur Simulation von 07-01-2023, 16:34:58 des Users andreasgut
-Anzahl Plätze pro Sessel 5, Sesselauslastung: 80.0%, Anzahl Sessel pro km: 5, Fahrgeschwindigkeit: 15 km/h, Toleranz: 20%, Himmelsrichtung: SW
+Report zur Simulation von 07-01-2023, 17:15:40 des Users andreasgut
+Anzahl Plätze pro Sessel 3, Sesselauslastung: 80.0%, Anzahl Sessel pro km: 20, Fahrgeschwindigkeit: 15 km/h, Toleranz: 20%, Himmelsrichtung: SW
+
+Dauer: 0:00:55
+Uhrzeit in Simulation: 8:00:55
+Transportierte Skifahrer: 0
+Skifahrer in Warteschlange: 2
+Wartezeit in Minuten: 0
+Liftauslastung tatsaechlich: 0.0
+Liftauslastung angenommen: 0.8
+Ueber/unter Kapazität: 16
+Skifahrer pro Stunde (real): 720.5
+Skifahrer pro Stunde (soll): 890
+Vertriebene Skifahrer: 0
+
+Dauer: 0:01:50
+Uhrzeit in Simulation: 8:01:50
+Transportierte Skifahrer: 0
+Skifahrer in Warteschlange: 4
+Wartezeit in Minuten: 0
+Liftauslastung tatsaechlich: 0.05128205128205128
+Liftauslastung angenommen: 0.8
+Ueber/unter Kapazität: 16
+Skifahrer pro Stunde (real): 721.5
+Skifahrer pro Stunde (soll): 890
+Vertriebene Skifahrer: 0
+
+Dauer: 0:02:45
+Uhrzeit in Simulation: 8:02:45
+Transportierte Skifahrer: 0
+Skifahrer in Warteschlange: 4
+Wartezeit in Minuten: 0
+Liftauslastung tatsaechlich: 0.4358974358974359
+Liftauslastung angenommen: 0.8
+Ueber/unter Kapazität: 16
+Skifahrer pro Stunde (real): 722.5
+Skifahrer pro Stunde (soll): 890
+Vertriebene Skifahrer: 0
+
+Dauer: 0:03:40
+Uhrzeit in Simulation: 8:03:40
+Transportierte Skifahrer: 0
+Skifahrer in Warteschlange: 4
+Wartezeit in Minuten: 0
+Liftauslastung tatsaechlich: 0.717948717948718
+Liftauslastung angenommen: 0.8
+Ueber/unter Kapazität: 16
+Skifahrer pro Stunde (real): 723.5
+Skifahrer pro Stunde (soll): 890
+Vertriebene Skifahrer: 0
 
