@@ -46,6 +46,7 @@ FPS = 50
 MAX_FRAME = 301
 CAPACITY = 5
 UTILISATION = 0.80
+TOLERANCE = 20
 LIFT_SPEED_KMH = 15
 LIFT_SPEED_PIXEL = math.ceil(LIFT_SPEED_KMH / 3.6)
 LIFT_LENGTH = 1.484
@@ -559,7 +560,9 @@ def main():
     file = open("report.txt", "w")
     file.write("Report zur Simulation von " + str(datetime.now().strftime("%d-%m-%Y, %H:%M:%S"))
                + " des Users " + str(os.environ.get('USER')) + "\n"
-               + "Anzahl Sessel: " + str(len(CHAIRS)) + ", Fahrgeschwindigkeit: " + str(LIFT_SPEED_KMH) + " km/h"
+               + "Anzahl Plätze pro Sessel " + str(CAPACITY) + ", Sesselauslastung: " + str(UTILISATION*100) + "%"
+               + ", Anzahl Sessel pro km: " + str(NUMBER_OF_CHAIRS_PER_KM) + ", Fahrgeschwindigkeit: " + str(LIFT_SPEED_KMH) + " km/h"
+            + ", Toleranz: " + str(TOLERANCE) + "%"
                + ", Himmelsrichtung: " + DIRECTION + "\n\n")
     file.close()
 
@@ -571,7 +574,7 @@ def main():
             if waiting_time_min < 10:
                 Skier()
             else:
-                if random.randrange(100) < 20:
+                if random.randrange(100) < TOLERANCE:
                     Skier()
                 else:
                     lost_skiers += 1
