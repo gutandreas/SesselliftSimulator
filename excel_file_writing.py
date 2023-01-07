@@ -43,6 +43,7 @@ df.to_excel(writer, sheet_name='Simulationsdaten')
 workbook = writer.book
 worksheet = writer.sheets['Simulationsdaten']
 
+
 # Create a chart object.
 chart_transported_skiers = workbook.add_chart({'type': 'line'})
 chart_transported_skiers.set_x_axis({'name': titels[1], 'num_font':  {'rotation': 90}})
@@ -68,6 +69,13 @@ chart_lost_skier.set_x_axis({'name': titels[1], 'num_font':  {'rotation': 90}})
 # Get the dimensions of the dataframe.
 (max_row, max_col) = df.shape
 
+widths = [8, 18, 19, 21, 21, 22, 18, 21, 21, 18]
+
+for i in range(len(widths)):
+    worksheet.set_column(i+1, i+1, widths[i])
+
+worksheet.add_table(0, 1, max_row, max_col, {'header_row': 0})
+
 # Configure the series of the chart from the dataframe data.
 chart_transported_skiers.add_series({'name': titels[2], 'categories': ['Simulationsdaten', 1, 2, max_row, 2],
                                      'values': ['Simulationsdaten', 1, 3, max_row, 3]})
@@ -85,7 +93,7 @@ chart_utilisation.add_series({'name': titels[5], 'categories': ['Simulationsdate
 
 chart_capacity_vs_demand.add_series({'name': titels[6], 'categories': ['Simulationsdaten', 1, 2, max_row, 2],
                                   'values': ['Simulationsdaten', 1, 7, max_row, 7],
-                                  'line': {'color': '#aaaaff'}})
+                                  'line': {'color': '#000000'}})
 
 chart_skiers_per_hour.add_series({'name': titels[7], 'categories': ['Simulationsdaten', 1, 2, max_row, 2],
                                   'values': ['Simulationsdaten', 1, 8, max_row, 8],
