@@ -46,10 +46,10 @@ FPS = 50
 MAX_FRAME = 301
 CAPACITY = 5
 UTILISATION = 0.80
-LIFT_SPEED_KMH = 13
+LIFT_SPEED_KMH = 15
 LIFT_SPEED_PIXEL = math.ceil(LIFT_SPEED_KMH / 3.6)
 LIFT_LENGTH = 1.484
-NUMBER_OF_CHAIRS_PER_KM = 15
+NUMBER_OF_CHAIRS_PER_KM = 20
 NUMBER_OF_CHAIRS = math.ceil(NUMBER_OF_CHAIRS_PER_KM * LIFT_LENGTH)
 EXPECTED_SKIERS_PER_HOUR = 1000
 DIRECTION = "SW"
@@ -61,7 +61,7 @@ current_utilisation = 0
 
 # Zeiteinstellung
 hours_start = 9
-minutes_start = 55
+minutes_start = 50
 seconds_start = 0
 
 hours_time = 0
@@ -69,8 +69,8 @@ minutes_time = 0
 seconds_time = 0
 
 report_interval_hours = 0
-report_interval_minutes = 1
-report_interval_seconds = 0
+report_interval_minutes = 0
+report_interval_seconds = 55
 report_interval = report_interval_hours * 3600 + report_interval_minutes * 60 + report_interval_seconds
 
 duration_as_string = ""
@@ -118,11 +118,13 @@ skiers_in_queue = 0
 skiers_transported = 0
 skiers_on_lift = 0
 percent_of_lift_in_use = 0
-average_waiting_frames = 0
+waiting_time_min = 0
 skier_counter_to_adjust_frequency = 0
 expected_skiers = 0
+lost_skiers = 0
 counters_to_adjust_frequency = [0,0,0,0]
 time_phase_to_adjust_frequency = 0
+lost_skiers_to_adjust_frequency = 0
 starting_point = 1600
 counter = 0
 
@@ -147,7 +149,7 @@ titles = ["Skifahrer in Warteschlange:", "Skifahrer transportiert:", "Skifahrer 
           "Auslastung Lift:", "Aktuelle Wartezeit:", "Dauer der Simulation:", "Uhrzeit der Simlation:",
           "Anzahl Sessel pro km:",
           "Anzahl Sessel total:", "Liftgeschwindigkeit:", "Sessel pro Minute:", "Sitze pro Sessel:", "Kapazität pro Stunde:",
-          "Neue Skifahrer pro Stunde:", "Soll neue Skifahrer: ", "Himmelsrichtung Lift:"]
+          "Neue Skifahrer pro Stunde:", "Soll neue Skifahrer: ", "Verlorene Skifahrer: ", "Himmelsrichtung Lift:"]
 for i in range(len(titles)):
     text_message_title = font.render(titles[i], True, (0,0,0))
     TEXT_MESSAGES_TITLE.append(text_message_title)
@@ -371,7 +373,7 @@ def set_chairs_on_lift(number_of_chairs):
 
 def update_text(counter):
 
-    global FREQUENCY, hours_time, minutes_time, seconds_time, duration_as_string, time_as_string, expected_skiers
+    global FREQUENCY, hours_time, minutes_time, seconds_time, duration_as_string, time_as_string, expected_skiers, lost_skiers
 
     TEXT_MESSAGES_VALUES = []
     TEXT_MESSAGES_VALUES.append(font.render(str(len(QUEUE_SKIERS.sprites())), True, (0, 0, 0)))
@@ -379,7 +381,7 @@ def update_text(counter):
     TEXT_MESSAGES_VALUES.append(font.render(str(skiers_on_lift), True, (0, 0, 0)))
     TEXT_MESSAGES_VALUES.append(
         font.render(str(current_utilisation * 100) + " %", True, (0, 0, 0)))
-    TEXT_MESSAGES_VALUES.append(font.render(str(average_waiting_frames) + " min", True, (0, 0, 0)))
+    TEXT_MESSAGES_VALUES.append(font.render(str(waiting_time_min) + " min", True, (0, 0, 0)))
 
     minutes, seconds = divmod(counter, 60)
     hours, minutes = divmod(minutes, 60)
@@ -401,6 +403,7 @@ def update_text(counter):
     TEXT_MESSAGES_VALUES.append(font.render(str(math.floor(expected_skiers/2)), True, (0, 0, 0)))
     TEXT_MESSAGES_VALUES.append(
         font.render(str(math.ceil(SKIERS_PER_HOUR)), True, (0, 0, 0)))
+    TEXT_MESSAGES_VALUES.append(font.render(str(lost_skiers), True, (0, 0, 0)))
     TEXT_MESSAGES_VALUES.append(font.render(DIRECTION, True, (0, 0, 0)))
 
 
@@ -432,7 +435,7 @@ def get_current_phase():
 def update_rate():
 
 
-    global FREQUENCY, counters_to_adjust_frequency, counter, time_phase_to_adjust_frequency, skier_counter_to_adjust_frequency, SKIERS_PER_HOUR
+    global FREQUENCY, counters_to_adjust_frequency, counter, time_phase_to_adjust_frequency, skier_counter_to_adjust_frequency, SKIERS_PER_HOUR, lost_skiers_to_adjust_frequency
 
     if get_current_phase() == 0:
         SKIERS_PER_HOUR = EXPECTED_SKIERS_PER_HOUR * FACTORS[column_dict[DIRECTION]][0]
@@ -445,6 +448,7 @@ def update_rate():
             print("Phase 1")
             time_phase_to_adjust_frequency = 1
             skier_counter_to_adjust_frequency = 0
+            lost_skiers_to_adjust_frequency = 0
     elif get_current_phase() == 2:
         SKIERS_PER_HOUR = EXPECTED_SKIERS_PER_HOUR * FACTORS[column_dict[DIRECTION]][2]
         counters_to_adjust_frequency[2] = counter
@@ -452,6 +456,7 @@ def update_rate():
             print("Phase 2")
             time_phase_to_adjust_frequency = 2
             skier_counter_to_adjust_frequency = 0
+            lost_skiers_to_adjust_frequency = 0
     elif get_current_phase() == 3:
         SKIERS_PER_HOUR = EXPECTED_SKIERS_PER_HOUR * FACTORS[column_dict[DIRECTION]][3]
         counters_to_adjust_frequency[3] = counter
@@ -459,6 +464,7 @@ def update_rate():
             print("Phase 3")
             time_phase_to_adjust_frequency = 3
             skier_counter_to_adjust_frequency = 0
+            lost_skiers_to_adjust_frequency = 0
     else:
         SKIERS_PER_HOUR = 0
 
@@ -491,13 +497,13 @@ def draw_screen(counter):
 
     screen.blit(FENCE, (station_down.rect.x - 15, station_down.rect.y + 63))
 
-    global average_waiting_frames, FREQUENCY
+    global waiting_time_min, FREQUENCY
 
     if counter % FPS == 0:
         if skiers_in_queue > 0:
-            average_waiting_frames = math.floor(skiers_in_queue/(LIFT_SPEED_PIXEL / (1484 / NUMBER_OF_CHAIRS) * CAPACITY * 60))
+            waiting_time_min = math.floor(skiers_in_queue / (LIFT_SPEED_PIXEL / (1484 / NUMBER_OF_CHAIRS) * CAPACITY * 60))
         else:
-            average_waiting_frames = 0
+            waiting_time_min = 0
 
 
 
@@ -529,9 +535,10 @@ def save_report():
                     + "Skifahrer in Warteschlange: " + str(len(QUEUE_SKIERS)) + "\n"
                     + "Liftauslastung tatsaechlich: " + str(current_utilisation) + "\n"
                     + "Liftauslastung angenommen: " + str(UTILISATION) + "\n"
-                    + "Ueber/unter Kapazität: " + str(math.ceil(LIFT_SPEED_PIXEL / (1484 / NUMBER_OF_CHAIRS) * 3600 * CAPACITY*UTILISATION)) + "\n"
+                    + "Ueber/unter Kapazität: " + str(math.ceil(SKIERS_PER_HOUR) - math.ceil(LIFT_SPEED_PIXEL / (1484 / NUMBER_OF_CHAIRS) * 3600 * CAPACITY*UTILISATION)) + "\n"
                     + "Skifahrer pro Stunde (real): " + str(expected_skiers/2) + "\n"
-                    + "Skifahrer pro Stunde (soll): " + str(math.ceil(SKIERS_PER_HOUR)) +
+                    + "Skifahrer pro Stunde (soll): " + str(math.ceil(SKIERS_PER_HOUR)) + "\n"
+                    + "Vertriebene Skifahrer: " + str(lost_skiers) +
                     "\n\n")
         file.close()
         print("Report wurde gespeichert.")
@@ -541,7 +548,7 @@ def save_report():
 
 
 def main():
-    global screen, running, FREQUENCY, counter, time_phase_to_adjust_frequency, expected_skiers
+    global screen, running, FREQUENCY, counter, time_phase_to_adjust_frequency, expected_skiers, lost_skiers, lost_skiers_to_adjust_frequency
 
     clock = pygame.time.Clock()
 
@@ -560,8 +567,15 @@ def main():
 
 
         if counter % FREQUENCY == 0:
-            #print("Skier", str(datetime.now().strftime("%H:%M:%S")))
-            Skier()
+            if waiting_time_min < 10:
+                Skier()
+            else:
+                if random.randrange(100) < 20:
+                    Skier()
+                else:
+                    lost_skiers += 1
+                    lost_skiers_to_adjust_frequency += 1
+
 
 
         if counter > 0 and counter % 30 == 0:
@@ -576,7 +590,7 @@ def main():
                 current_counter = counter
 
             skiers_in_future = ((7200-current_counter)/FREQUENCY)
-            expected_skiers = skier_counter_to_adjust_frequency + skiers_in_future
+            expected_skiers = skier_counter_to_adjust_frequency + skiers_in_future + lost_skiers_to_adjust_frequency
 
             if expected_skiers < SKIERS_PER_HOUR*2:
                 if FREQUENCY != 1:
@@ -588,6 +602,7 @@ def main():
             print("Aktuelle Skier pro Stunde: ", expected_skiers)
             print("Soll Skier pro Stunde: ", SKIERS_PER_HOUR)
             print("Aktueller Counter: ", current_counter)
+            print("Lost Skiers to adjust: ", lost_skiers_to_adjust_frequency)
 
         counter += 1
 
