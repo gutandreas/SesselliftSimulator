@@ -51,6 +51,9 @@ chart_transported_skiers.set_x_axis({'name': titels[1], 'num_font':  {'rotation'
 chart_skiers_in_queue = workbook.add_chart({'type': 'line'})
 chart_skiers_in_queue.set_x_axis({'name': titels[1], 'num_font':  {'rotation': 90}})
 
+chart_skiers_in_queue_duration = workbook.add_chart({'type': 'line'})
+chart_skiers_in_queue_duration.set_x_axis({'name': titels[1], 'num_font':  {'rotation': 90}})
+
 chart_utilisation = workbook.add_chart({'type': 'line'})
 chart_utilisation.set_x_axis({'name': titels[1], 'num_font':  {'rotation': 90}})
 chart_utilisation.set_title({'name': 'Liftauslastung'})
@@ -69,7 +72,7 @@ chart_lost_skier.set_x_axis({'name': titels[1], 'num_font':  {'rotation': 90}})
 # Get the dimensions of the dataframe.
 (max_row, max_col) = df.shape
 
-widths = [8, 18, 19, 21, 21, 22, 18, 21, 21, 18]
+widths = [8, 18, 19, 21, 17, 21, 22, 18, 21, 21, 18]
 
 for i in range(len(widths)):
     worksheet.set_column(i+1, i+1, widths[i])
@@ -83,27 +86,31 @@ chart_transported_skiers.add_series({'name': titels[2], 'categories': ['Simulati
 chart_skiers_in_queue.add_series({'name': titels[3], 'categories': ['Simulationsdaten', 1, 2, max_row, 2],
                                   'values': ['Simulationsdaten', 1, 4, max_row, 4],
                                   'line': {'color': '#ff0000'}})
-
-chart_utilisation.add_series({'name': titels[4], 'categories': ['Simulationsdaten', 1, 2, max_row, 2],
+chart_skiers_in_queue_duration.add_series({'name': titels[4], 'categories': ['Simulationsdaten', 1, 2, max_row, 2],
                                   'values': ['Simulationsdaten', 1, 5, max_row, 5],
-                                  'line': {'color': '#000000'}})
+                                  'line': {'color': '#0000ff'}, 'y2_axis': True})
+chart_skiers_in_queue.combine(chart_skiers_in_queue_duration)
+
 chart_utilisation.add_series({'name': titels[5], 'categories': ['Simulationsdaten', 1, 2, max_row, 2],
                                   'values': ['Simulationsdaten', 1, 6, max_row, 6],
+                                  'line': {'color': '#000000'}})
+chart_utilisation.add_series({'name': titels[6], 'categories': ['Simulationsdaten', 1, 2, max_row, 2],
+                                  'values': ['Simulationsdaten', 1, 7, max_row, 7],
                                   'line': {'color': '#aaaaff'}})
 
-chart_capacity_vs_demand.add_series({'name': titels[6], 'categories': ['Simulationsdaten', 1, 2, max_row, 2],
-                                  'values': ['Simulationsdaten', 1, 7, max_row, 7],
+chart_capacity_vs_demand.add_series({'name': titels[7], 'categories': ['Simulationsdaten', 1, 2, max_row, 2],
+                                  'values': ['Simulationsdaten', 1, 8, max_row, 8],
                                   'line': {'color': '#000000'}})
 
-chart_skiers_per_hour.add_series({'name': titels[7], 'categories': ['Simulationsdaten', 1, 2, max_row, 2],
-                                  'values': ['Simulationsdaten', 1, 8, max_row, 8],
-                                  'line': {'color': '#109910'}})
 chart_skiers_per_hour.add_series({'name': titels[8], 'categories': ['Simulationsdaten', 1, 2, max_row, 2],
                                   'values': ['Simulationsdaten', 1, 9, max_row, 9],
+                                  'line': {'color': '#109910'}})
+chart_skiers_per_hour.add_series({'name': titels[9], 'categories': ['Simulationsdaten', 1, 2, max_row, 2],
+                                  'values': ['Simulationsdaten', 1, 10, max_row, 10],
                                   'line': {'color': '#bbbbbb'}})
 
-chart_lost_skier.add_series({'name': titels[9], 'categories': ['Simulationsdaten', 1, 2, max_row, 2],
-                                  'values': ['Simulationsdaten', 1, 10, max_row, 10],
+chart_lost_skier.add_series({'name': titels[10], 'categories': ['Simulationsdaten', 1, 2, max_row, 2],
+                                  'values': ['Simulationsdaten', 1, 11, max_row, 11],
                                   'line': {'color': '#ff5555'}})
 
 # Insert the chart into the worksheet.

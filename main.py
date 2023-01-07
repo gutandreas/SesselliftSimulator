@@ -49,7 +49,7 @@ UTILISATION = 0.80
 LIFT_SPEED_KMH = 15
 LIFT_SPEED_PIXEL = math.ceil(LIFT_SPEED_KMH / 3.6)
 LIFT_LENGTH = 1.484
-NUMBER_OF_CHAIRS_PER_KM = 20
+NUMBER_OF_CHAIRS_PER_KM = 5
 NUMBER_OF_CHAIRS = math.ceil(NUMBER_OF_CHAIRS_PER_KM * LIFT_LENGTH)
 EXPECTED_SKIERS_PER_HOUR = 1000
 DIRECTION = "SW"
@@ -533,6 +533,7 @@ def save_report():
                     + "Uhrzeit in Simulation: " + time_as_string + "\n"
                     + "Transportierte Skifahrer: " + str(skiers_transported) + "\n"
                     + "Skifahrer in Warteschlange: " + str(len(QUEUE_SKIERS)) + "\n"
+                    + "Wartezeit in Minuten: " + str(waiting_time_min) + "\n"
                     + "Liftauslastung tatsaechlich: " + str(current_utilisation) + "\n"
                     + "Liftauslastung angenommen: " + str(UTILISATION) + "\n"
                     + "Ueber/unter Kapazität: " + str(math.ceil(SKIERS_PER_HOUR) - math.ceil(LIFT_SPEED_PIXEL / (1484 / NUMBER_OF_CHAIRS) * 3600 * CAPACITY*UTILISATION)) + "\n"

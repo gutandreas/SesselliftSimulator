@@ -1,13 +1,14 @@
-Report zur Simulation von 07-01-2023, 14:05:56 des Users andreasgut
-Anzahl Sessel: 30, Fahrgeschwindigkeit: 15 km/h, Himmelsrichtung: SW
+Report zur Simulation von 07-01-2023, 16:06:51 des Users andreasgut
+Anzahl Sessel: 8, Fahrgeschwindigkeit: 15 km/h, Himmelsrichtung: SW
 
 Dauer: 0:00:55
 Uhrzeit in Simulation: 9:50:55
 Transportierte Skifahrer: 0
 Skifahrer in Warteschlange: 2
+Wartezeit in Minuten: 0
 Liftauslastung tatsaechlich: 0.0
 Liftauslastung angenommen: 0.8
-Ueber/unter Kapazität: -566
+Ueber/unter Kapazität: 501
 Skifahrer pro Stunde (real): 720.5
 Skifahrer pro Stunde (soll): 890
 Vertriebene Skifahrer: 0
@@ -15,10 +16,11 @@ Vertriebene Skifahrer: 0
 Dauer: 0:01:50
 Uhrzeit in Simulation: 9:51:50
 Transportierte Skifahrer: 0
-Skifahrer in Warteschlange: 4
-Liftauslastung tatsaechlich: 0.03076923076923077
+Skifahrer in Warteschlange: 6
+Wartezeit in Minuten: 0
+Liftauslastung tatsaechlich: 0.0
 Liftauslastung angenommen: 0.8
-Ueber/unter Kapazität: -566
+Ueber/unter Kapazität: 501
 Skifahrer pro Stunde (real): 721.5
 Skifahrer pro Stunde (soll): 890
 Vertriebene Skifahrer: 0
@@ -26,10 +28,11 @@ Vertriebene Skifahrer: 0
 Dauer: 0:02:45
 Uhrzeit in Simulation: 9:52:45
 Transportierte Skifahrer: 0
-Skifahrer in Warteschlange: 4
-Liftauslastung tatsaechlich: 0.26153846153846155
+Skifahrer in Warteschlange: 28
+Wartezeit in Minuten: 2
+Liftauslastung tatsaechlich: 0.26666666666666666
 Liftauslastung angenommen: 0.8
-Ueber/unter Kapazität: -566
+Ueber/unter Kapazität: 501
 Skifahrer pro Stunde (real): 722.5
 Skifahrer pro Stunde (soll): 890
 Vertriebene Skifahrer: 0
@@ -37,319 +40,120 @@ Vertriebene Skifahrer: 0
 Dauer: 0:03:40
 Uhrzeit in Simulation: 9:53:40
 Transportierte Skifahrer: 0
-Skifahrer in Warteschlange: 4
-Liftauslastung tatsaechlich: 0.4307692307692308
+Skifahrer in Warteschlange: 34
+Wartezeit in Minuten: 4
+Liftauslastung tatsaechlich: 0.8
 Liftauslastung angenommen: 0.8
-Ueber/unter Kapazität: -566
+Ueber/unter Kapazität: 501
 Skifahrer pro Stunde (real): 723.5
 Skifahrer pro Stunde (soll): 890
 Vertriebene Skifahrer: 0
 
 Dauer: 0:04:35
 Uhrzeit in Simulation: 9:54:35
-Transportierte Skifahrer: 14
-Skifahrer in Warteschlange: 3
-Liftauslastung tatsaechlich: 0.46153846153846156
+Transportierte Skifahrer: 8
+Skifahrer in Warteschlange: 43
+Wartezeit in Minuten: 5
+Liftauslastung tatsaechlich: 0.8
 Liftauslastung angenommen: 0.8
-Ueber/unter Kapazität: -566
+Ueber/unter Kapazität: 501
 Skifahrer pro Stunde (real): 724.5
 Skifahrer pro Stunde (soll): 890
 Vertriebene Skifahrer: 0
 
 Dauer: 0:05:30
 Uhrzeit in Simulation: 9:55:30
-Transportierte Skifahrer: 26
-Skifahrer in Warteschlange: 2
-Liftauslastung tatsaechlich: 0.46153846153846156
+Transportierte Skifahrer: 12
+Skifahrer in Warteschlange: 51
+Wartezeit in Minuten: 5
+Liftauslastung tatsaechlich: 0.8
 Liftauslastung angenommen: 0.8
-Ueber/unter Kapazität: -566
+Ueber/unter Kapazität: 501
 Skifahrer pro Stunde (real): 898.0
 Skifahrer pro Stunde (soll): 890
 Vertriebene Skifahrer: 0
 
 Dauer: 0:06:25
 Uhrzeit in Simulation: 9:56:25
-Transportierte Skifahrer: 40
-Skifahrer in Warteschlange: 2
-Liftauslastung tatsaechlich: 0.47692307692307695
+Transportierte Skifahrer: 16
+Skifahrer in Warteschlange: 56
+Wartezeit in Minuten: 6
+Liftauslastung tatsaechlich: 0.8
 Liftauslastung angenommen: 0.8
-Ueber/unter Kapazität: -566
+Ueber/unter Kapazität: 501
 Skifahrer pro Stunde (real): 897.5
 Skifahrer pro Stunde (soll): 890
 Vertriebene Skifahrer: 0
 
 Dauer: 0:07:20
 Uhrzeit in Simulation: 9:57:20
-Transportierte Skifahrer: 51
-Skifahrer in Warteschlange: 2
-Liftauslastung tatsaechlich: 0.47692307692307695
+Transportierte Skifahrer: 24
+Skifahrer in Warteschlange: 65
+Wartezeit in Minuten: 7
+Liftauslastung tatsaechlich: 0.8
 Liftauslastung angenommen: 0.8
-Ueber/unter Kapazität: -566
+Ueber/unter Kapazität: 501
 Skifahrer pro Stunde (real): 897.0
 Skifahrer pro Stunde (soll): 890
 Vertriebene Skifahrer: 0
 
 Dauer: 0:08:15
 Uhrzeit in Simulation: 9:58:15
-Transportierte Skifahrer: 66
-Skifahrer in Warteschlange: 2
-Liftauslastung tatsaechlich: 0.47692307692307695
+Transportierte Skifahrer: 28
+Skifahrer in Warteschlange: 70
+Wartezeit in Minuten: 7
+Liftauslastung tatsaechlich: 0.8
 Liftauslastung angenommen: 0.8
-Ueber/unter Kapazität: -566
+Ueber/unter Kapazität: 501
 Skifahrer pro Stunde (real): 896.5
 Skifahrer pro Stunde (soll): 890
 Vertriebene Skifahrer: 0
 
 Dauer: 0:09:10
 Uhrzeit in Simulation: 9:59:10
-Transportierte Skifahrer: 76
-Skifahrer in Warteschlange: 2
-Liftauslastung tatsaechlich: 0.46153846153846156
+Transportierte Skifahrer: 36
+Skifahrer in Warteschlange: 79
+Wartezeit in Minuten: 9
+Liftauslastung tatsaechlich: 0.8
 Liftauslastung angenommen: 0.8
-Ueber/unter Kapazität: -566
+Ueber/unter Kapazität: 501
 Skifahrer pro Stunde (real): 896.0
 Skifahrer pro Stunde (soll): 890
 Vertriebene Skifahrer: 0
 
 Dauer: 0:10:05
 Uhrzeit in Simulation: 10:00:05
-Transportierte Skifahrer: 91
-Skifahrer in Warteschlange: 3
-Liftauslastung tatsaechlich: 0.4461538461538462
+Transportierte Skifahrer: 40
+Skifahrer in Warteschlange: 83
+Wartezeit in Minuten: 10
+Liftauslastung tatsaechlich: 0.8
 Liftauslastung angenommen: 0.8
-Ueber/unter Kapazität: 322
+Ueber/unter Kapazität: 1389
 Skifahrer pro Stunde (real): 900.375
 Skifahrer pro Stunde (soll): 1778
-Vertriebene Skifahrer: 0
+Vertriebene Skifahrer: 2
 
 Dauer: 0:11:00
 Uhrzeit in Simulation: 10:01:00
-Transportierte Skifahrer: 102
-Skifahrer in Warteschlange: 25
-Liftauslastung tatsaechlich: 0.48333333333333334
+Transportierte Skifahrer: 48
+Skifahrer in Warteschlange: 85
+Wartezeit in Minuten: 10
+Liftauslastung tatsaechlich: 0.8
 Liftauslastung angenommen: 0.8
-Ueber/unter Kapazität: 322
+Ueber/unter Kapazität: 1389
 Skifahrer pro Stunde (real): 1200.3333333333333
 Skifahrer pro Stunde (soll): 1778
-Vertriebene Skifahrer: 0
+Vertriebene Skifahrer: 19
 
 Dauer: 0:11:55
 Uhrzeit in Simulation: 10:01:55
-Transportierte Skifahrer: 116
-Skifahrer in Warteschlange: 37
-Liftauslastung tatsaechlich: 0.5076923076923077
+Transportierte Skifahrer: 52
+Skifahrer in Warteschlange: 80
+Wartezeit in Minuten: 10
+Liftauslastung tatsaechlich: 0.8
 Liftauslastung angenommen: 0.8
-Ueber/unter Kapazität: 322
+Ueber/unter Kapazität: 1389
 Skifahrer pro Stunde (real): 1202.8333333333333
 Skifahrer pro Stunde (soll): 1778
-Vertriebene Skifahrer: 0
-
-Dauer: 0:12:50
-Uhrzeit in Simulation: 10:02:50
-Transportierte Skifahrer: 129
-Skifahrer in Warteschlange: 40
-Liftauslastung tatsaechlich: 0.5846153846153846
-Liftauslastung angenommen: 0.8
-Ueber/unter Kapazität: 322
-Skifahrer pro Stunde (real): 1205.3333333333333
-Skifahrer pro Stunde (soll): 1778
-Vertriebene Skifahrer: 0
-
-Dauer: 0:13:45
-Uhrzeit in Simulation: 10:03:45
-Transportierte Skifahrer: 144
-Skifahrer in Warteschlange: 43
-Liftauslastung tatsaechlich: 0.7076923076923077
-Liftauslastung angenommen: 0.8
-Ueber/unter Kapazität: 322
-Skifahrer pro Stunde (real): 1207.8333333333333
-Skifahrer pro Stunde (soll): 1778
-Vertriebene Skifahrer: 0
-
-Dauer: 0:14:40
-Uhrzeit in Simulation: 10:04:40
-Transportierte Skifahrer: 161
-Skifahrer in Warteschlange: 47
-Liftauslastung tatsaechlich: 0.7076923076923077
-Liftauslastung angenommen: 0.8
-Ueber/unter Kapazität: 322
-Skifahrer pro Stunde (real): 1210.3333333333333
-Skifahrer pro Stunde (soll): 1778
-Vertriebene Skifahrer: 0
-
-Dauer: 0:15:35
-Uhrzeit in Simulation: 10:05:35
-Transportierte Skifahrer: 182
-Skifahrer in Warteschlange: 49
-Liftauslastung tatsaechlich: 0.7166666666666667
-Liftauslastung angenommen: 0.8
-Ueber/unter Kapazität: 322
-Skifahrer pro Stunde (real): 1212.8333333333333
-Skifahrer pro Stunde (soll): 1778
-Vertriebene Skifahrer: 0
-
-Dauer: 0:16:30
-Uhrzeit in Simulation: 10:06:30
-Transportierte Skifahrer: 200
-Skifahrer in Warteschlange: 53
-Liftauslastung tatsaechlich: 0.7076923076923077
-Liftauslastung angenommen: 0.8
-Ueber/unter Kapazität: 322
-Skifahrer pro Stunde (real): 1785.25
-Skifahrer pro Stunde (soll): 1778
-Vertriebene Skifahrer: 0
-
-Dauer: 0:17:25
-Uhrzeit in Simulation: 10:07:25
-Transportierte Skifahrer: 221
-Skifahrer in Warteschlange: 56
-Liftauslastung tatsaechlich: 0.7076923076923077
-Liftauslastung angenommen: 0.8
-Ueber/unter Kapazität: 322
-Skifahrer pro Stunde (real): 1782.75
-Skifahrer pro Stunde (soll): 1778
-Vertriebene Skifahrer: 0
-
-Dauer: 0:18:20
-Uhrzeit in Simulation: 10:08:20
-Transportierte Skifahrer: 239
-Skifahrer in Warteschlange: 61
-Liftauslastung tatsaechlich: 0.6923076923076923
-Liftauslastung angenommen: 0.8
-Ueber/unter Kapazität: 322
-Skifahrer pro Stunde (real): 1780.25
-Skifahrer pro Stunde (soll): 1778
-Vertriebene Skifahrer: 0
-
-Dauer: 0:19:15
-Uhrzeit in Simulation: 10:09:15
-Transportierte Skifahrer: 260
-Skifahrer in Warteschlange: 74
-Liftauslastung tatsaechlich: 0.7076923076923077
-Liftauslastung angenommen: 0.8
-Ueber/unter Kapazität: 322
-Skifahrer pro Stunde (real): 1777.75
-Skifahrer pro Stunde (soll): 1778
-Vertriebene Skifahrer: 0
-
-Dauer: 0:20:10
-Uhrzeit in Simulation: 10:10:10
-Transportierte Skifahrer: 277
-Skifahrer in Warteschlange: 90
-Liftauslastung tatsaechlich: 0.7076923076923077
-Liftauslastung angenommen: 0.8
-Ueber/unter Kapazität: 322
-Skifahrer pro Stunde (real): 1785.25
-Skifahrer pro Stunde (soll): 1778
-Vertriebene Skifahrer: 0
-
-Dauer: 0:21:05
-Uhrzeit in Simulation: 10:11:05
-Transportierte Skifahrer: 298
-Skifahrer in Warteschlange: 91
-Liftauslastung tatsaechlich: 0.7333333333333333
-Liftauslastung angenommen: 0.8
-Ueber/unter Kapazität: 322
-Skifahrer pro Stunde (real): 1782.75
-Skifahrer pro Stunde (soll): 1778
-Vertriebene Skifahrer: 0
-
-Dauer: 0:22:00
-Uhrzeit in Simulation: 10:12:00
-Transportierte Skifahrer: 316
-Skifahrer in Warteschlange: 97
-Liftauslastung tatsaechlich: 0.7076923076923077
-Liftauslastung angenommen: 0.8
-Ueber/unter Kapazität: 322
-Skifahrer pro Stunde (real): 1237.8333333333333
-Skifahrer pro Stunde (soll): 1778
-Vertriebene Skifahrer: 0
-
-Dauer: 0:22:55
-Uhrzeit in Simulation: 10:12:55
-Transportierte Skifahrer: 338
-Skifahrer in Warteschlange: 98
-Liftauslastung tatsaechlich: 0.7230769230769231
-Liftauslastung angenommen: 0.8
-Ueber/unter Kapazität: 322
-Skifahrer pro Stunde (real): 1240.3333333333333
-Skifahrer pro Stunde (soll): 1778
-Vertriebene Skifahrer: 0
-
-Dauer: 0:23:50
-Uhrzeit in Simulation: 10:13:50
-Transportierte Skifahrer: 355
-Skifahrer in Warteschlange: 122
-Liftauslastung tatsaechlich: 0.7384615384615385
-Liftauslastung angenommen: 0.8
-Ueber/unter Kapazität: 322
-Skifahrer pro Stunde (real): 3382.5
-Skifahrer pro Stunde (soll): 1778
-Vertriebene Skifahrer: 0
-
-Dauer: 0:24:45
-Uhrzeit in Simulation: 10:14:45
-Transportierte Skifahrer: 373
-Skifahrer in Warteschlange: 122
-Liftauslastung tatsaechlich: 0.7384615384615385
-Liftauslastung angenommen: 0.8
-Ueber/unter Kapazität: 322
-Skifahrer pro Stunde (real): 1255.3333333333333
-Skifahrer pro Stunde (soll): 1778
-Vertriebene Skifahrer: 0
-
-Dauer: 0:25:40
-Uhrzeit in Simulation: 10:15:40
-Transportierte Skifahrer: 395
-Skifahrer in Warteschlange: 126
-Liftauslastung tatsaechlich: 0.75
-Liftauslastung angenommen: 0.8
-Ueber/unter Kapazität: 322
-Skifahrer pro Stunde (real): 1257.8333333333333
-Skifahrer pro Stunde (soll): 1778
-Vertriebene Skifahrer: 0
-
-Dauer: 0:26:35
-Uhrzeit in Simulation: 10:16:35
-Transportierte Skifahrer: 417
-Skifahrer in Warteschlange: 127
-Liftauslastung tatsaechlich: 0.7230769230769231
-Liftauslastung angenommen: 0.8
-Ueber/unter Kapazität: 322
-Skifahrer pro Stunde (real): 1260.3333333333333
-Skifahrer pro Stunde (soll): 1778
-Vertriebene Skifahrer: 0
-
-Dauer: 0:27:30
-Uhrzeit in Simulation: 10:17:30
-Transportierte Skifahrer: 436
-Skifahrer in Warteschlange: 150
-Liftauslastung tatsaechlich: 0.7384615384615385
-Liftauslastung angenommen: 0.8
-Ueber/unter Kapazität: 322
-Skifahrer pro Stunde (real): 1777.75
-Skifahrer pro Stunde (soll): 1778
-Vertriebene Skifahrer: 0
-
-Dauer: 0:28:25
-Uhrzeit in Simulation: 10:18:25
-Transportierte Skifahrer: 458
-Skifahrer in Warteschlange: 152
-Liftauslastung tatsaechlich: 0.7384615384615385
-Liftauslastung angenommen: 0.8
-Ueber/unter Kapazität: 322
-Skifahrer pro Stunde (real): 1785.25
-Skifahrer pro Stunde (soll): 1778
-Vertriebene Skifahrer: 0
-
-Dauer: 0:29:20
-Uhrzeit in Simulation: 10:19:20
-Transportierte Skifahrer: 476
-Skifahrer in Warteschlange: 157
-Liftauslastung tatsaechlich: 0.7384615384615385
-Liftauslastung angenommen: 0.8
-Ueber/unter Kapazität: 322
-Skifahrer pro Stunde (real): 1782.75
-Skifahrer pro Stunde (soll): 1778
-Vertriebene Skifahrer: 0
+Vertriebene Skifahrer: 39
 
