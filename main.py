@@ -6,6 +6,8 @@ from datetime import datetime
 import pygame
 from pygame.rect import Rect
 
+import sessellift_settings
+
 pygame.init()
 
 # Fenster
@@ -49,18 +51,22 @@ column_dict = {
   "NW": 7
 }
 
+settings = sessellift_settings.get_dict()
+
 running = True
 FPS = 80
-CAPACITY = 3
-UTILISATION = 0.80
-TOLERANCE = 20
-LIFT_SPEED_KMH = 15
+CAPACITY = settings["SITZE PRO SESSEL"]
+UTILISATION = settings["PROZENT AUSLASTUNG SESSEL"]/100
+NUMBER_OF_CHAIRS_PER_KM = settings["ANZAHL SESSEL PRO KM"]
+LIFT_SPEED_KMH = settings["FAHRGESCHWINDIGKEIT"]
+DIRECTION = settings["HIMMELSRICHTUNG"]
+EXPECTED_SKIERS_PER_HOUR = settings["GRUNDMENGE SKIFAHRER"]
+TOLERANCE = settings["PROZENT TOLERANTE SKIFAHRER"]
+
+
 LIFT_SPEED_PIXEL = math.ceil(LIFT_SPEED_KMH / 3.6)
 LIFT_LENGTH = 1.484
-NUMBER_OF_CHAIRS_PER_KM = 20
 NUMBER_OF_CHAIRS = math.ceil(NUMBER_OF_CHAIRS_PER_KM * LIFT_LENGTH)
-EXPECTED_SKIERS_PER_HOUR = 1200
-DIRECTION = "SW"
 SKIERS_PER_HOUR = EXPECTED_SKIERS_PER_HOUR*FACTORS[column_dict[DIRECTION]][0]
 FREQUENCY = math.ceil(3600 / SKIERS_PER_HOUR)
 CURRENT_FACTOR = 0

@@ -1,0 +1,13 @@
+
+settings_dict = {
+  "SITZE PRO SESSEL": 3,
+  "PROZENT AUSLASTUNG SESSEL": 80,
+  "ANZAHL SESSEL PRO KM": 20,
+  "FAHRGESCHWINDIGKEIT": 15,
+  "HIMMELSRICHTUNG": "N",
+  "GRUNDMENGE SKIFAHRER": 2000,
+  "PROZENT TOLERANTE SKIFAHRER": 20
+}
+
+def get_dict():
+    return settings_dict
