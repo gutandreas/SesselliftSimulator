@@ -150,15 +150,16 @@ FONTSIZE = 20
 #font = pygame.font.Font(pygame.font.get_default_font(), FONTSIZE)
 font = pygame.font.SysFont('arial black', FONTSIZE)
 
-colors = [BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, ]
+colors = [BLACK, BLACK, DARK_BLUE, RED, GREEN, GREY, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, ]
 
-titles = ["Skifahrer in Warteschlange:", "Skifahrer transportiert:", "Skifahrer auf Lift:",
-          "Auslastung Lift:", "Aktuelle Wartezeit:", "Dauer der Simulation:", "Uhrzeit der Simlation:",
-          "Anzahl Sessel pro km:",
-          "Anzahl Sessel total:", "Liftgeschwindigkeit:", "Sessel pro Minute:", "Sitze pro Sessel:", "Kapazität pro Stunde:",
-          "Neue Skifahrer pro Stunde:", "Soll neue Skifahrer: ", "Verlorene Skifahrer: ", "Himmelsrichtung Lift:"]
+titles = ["Dauer der Simulation:", "Uhrzeit der Simlation:",
+          "Sitze pro Sessel:", "Auslastung Lift:", "Anzahl Sessel pro km / total:",
+        "Liftgeschwindigkeit:", "Kapazität pro Stunde:", "Skifahrer in Warteschlange:", "Skifahrer transportiert:", "Skifahrer auf Lift:",
+           "Aktuelle Wartezeit:",
+            "Sessel pro Minute:",
+          "Neue Skifahrer pro Stunde:", "Verlorene Skifahrer: ", "Himmelsrichtung Lift:"]
 for i in range(len(titles)):
-    text_message_title = font.render(titles[i], True, (0,0,0))
+    text_message_title = font.render(titles[i], True, colors[i])
     TEXT_MESSAGES_TITLE.append(text_message_title)
 
 
@@ -383,13 +384,6 @@ def update_text(counter):
     global FREQUENCY, hours_time, minutes_time, seconds_time, duration_as_string, time_as_string, expected_skiers, lost_skiers
 
     TEXT_MESSAGES_VALUES = []
-    TEXT_MESSAGES_VALUES.append(font.render(str(len(QUEUE_SKIERS.sprites())), True, (0, 0, 0)))
-    TEXT_MESSAGES_VALUES.append(font.render(str(skiers_transported), True, (0, 0, 0)))
-    TEXT_MESSAGES_VALUES.append(font.render(str(skiers_on_lift), True, (0, 0, 0)))
-    TEXT_MESSAGES_VALUES.append(
-        font.render(str(current_utilisation * 100) + " %", True, RED))
-    TEXT_MESSAGES_VALUES.append(font.render(str(waiting_time_min) + " min", True, (0, 0, 0)))
-
     minutes, seconds = divmod(counter, 60)
     hours, minutes = divmod(minutes, 60)
     duration_as_string = f'{hours:d}:{minutes:02d}:{seconds:02d}'
@@ -399,17 +393,26 @@ def update_text(counter):
     days_time, hours_time = divmod(hours_time + hours_start, 24)
     time_as_string = f'{hours_time:d}:{minutes_time:02d}:{seconds_time:02d}'
     TEXT_MESSAGES_VALUES.append(font.render(time_as_string, True, (0, 0, 0)))
-    TEXT_MESSAGES_VALUES.append(font.render(str(NUMBER_OF_CHAIRS_PER_KM), True, GREEN))
-    TEXT_MESSAGES_VALUES.append(font.render(str(NUMBER_OF_CHAIRS), True, GREEN))
-    TEXT_MESSAGES_VALUES.append(font.render(str(LIFT_SPEED_KMH) + " km/h", True, GREY))
-    TEXT_MESSAGES_VALUES.append(
-        font.render(str(math.ceil(LIFT_SPEED_PIXEL / (1484 / NUMBER_OF_CHAIRS) * 60)), True, (0, 0, 0)))
     TEXT_MESSAGES_VALUES.append(font.render(str(CAPACITY), True, DARK_BLUE))
     TEXT_MESSAGES_VALUES.append(
-        font.render(str(math.ceil(LIFT_SPEED_PIXEL / (1484 / NUMBER_OF_CHAIRS) * 3600 * CAPACITY*UTILISATION)), True, (0, 0, 0)))
-    TEXT_MESSAGES_VALUES.append(font.render(str(math.floor(expected_skiers/2)), True, (0, 0, 0)))
+        font.render(str(current_utilisation * 100) + " %  (" + str(math.ceil(UTILISATION * 100)) + " %)", True, RED))
+    TEXT_MESSAGES_VALUES.append(font.render(str(NUMBER_OF_CHAIRS_PER_KM) + " / " + str(NUMBER_OF_CHAIRS), True, GREEN))
+    TEXT_MESSAGES_VALUES.append(font.render(str(LIFT_SPEED_KMH) + " km/h", True, GREY))
     TEXT_MESSAGES_VALUES.append(
-        font.render(str(math.ceil(SKIERS_PER_HOUR)), True, (0, 0, 0)))
+        font.render(str(math.ceil(LIFT_SPEED_PIXEL / (1484 / NUMBER_OF_CHAIRS) * 3600 * CAPACITY * UTILISATION)), True,
+                    (0, 0, 0)))
+
+
+    TEXT_MESSAGES_VALUES.append(font.render(str(len(QUEUE_SKIERS.sprites())), True, (0, 0, 0)))
+    TEXT_MESSAGES_VALUES.append(font.render(str(skiers_transported), True, (0, 0, 0)))
+    TEXT_MESSAGES_VALUES.append(font.render(str(skiers_on_lift), True, (0, 0, 0)))
+    TEXT_MESSAGES_VALUES.append(font.render(str(waiting_time_min) + " min", True, (0, 0, 0)))
+
+
+    TEXT_MESSAGES_VALUES.append(
+        font.render(str(math.ceil(LIFT_SPEED_PIXEL / (1484 / NUMBER_OF_CHAIRS) * 60)), True, (0, 0, 0)))
+
+    TEXT_MESSAGES_VALUES.append(font.render(str(math.floor(expected_skiers/2)) + "  (" + str(math.ceil(SKIERS_PER_HOUR)) + ")", True, (0, 0, 0)))
     TEXT_MESSAGES_VALUES.append(font.render(str(lost_skiers), True, (0, 0, 0)))
     TEXT_MESSAGES_VALUES.append(font.render(DIRECTION, True, DARK_YELLOW))
 

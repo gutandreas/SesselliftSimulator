@@ -1,4 +1,4 @@
-Report zur Simulation von 07-01-2023, 17:15:40 des Users andreasgut
+Report zur Simulation von 08-01-2023, 13:26:26 des Users andreasgut
 Anzahl Plätze pro Sessel 3, Sesselauslastung: 80.0%, Anzahl Sessel pro km: 20, Fahrgeschwindigkeit: 15 km/h, Toleranz: 20%, Himmelsrichtung: SW
 
 Dauer: 0:00:55
@@ -46,6 +46,18 @@ Liftauslastung tatsaechlich: 0.717948717948718
 Liftauslastung angenommen: 0.8
 Ueber/unter Kapazität: 16
 Skifahrer pro Stunde (real): 723.5
+Skifahrer pro Stunde (soll): 890
+Vertriebene Skifahrer: 0
+
+Dauer: 0:04:35
+Uhrzeit in Simulation: 8:04:35
+Transportierte Skifahrer: 14
+Skifahrer in Warteschlange: 3
+Wartezeit in Minuten: 0
+Liftauslastung tatsaechlich: 0.7692307692307693
+Liftauslastung angenommen: 0.8
+Ueber/unter Kapazität: 16
+Skifahrer pro Stunde (real): 724.5
 Skifahrer pro Stunde (soll): 890
 Vertriebene Skifahrer: 0
 
