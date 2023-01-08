@@ -19,6 +19,9 @@ WHITE = (255, 255, 255)
 GREEN = (78, 173, 91)
 BLUE = (100, 100, 255)
 DARK_BLUE = (47, 110, 186)
+VERY_DARK_BLUE = (9, 31, 92)
+LIGHT_BLUE = (50, 120, 255)
+COBALT = (0, 127, 151)
 BLACK = (0, 0, 0)
 RED = (234, 51, 35)
 GREY = (82, 82, 82)
@@ -56,10 +59,11 @@ LIFT_SPEED_PIXEL = math.ceil(LIFT_SPEED_KMH / 3.6)
 LIFT_LENGTH = 1.484
 NUMBER_OF_CHAIRS_PER_KM = 20
 NUMBER_OF_CHAIRS = math.ceil(NUMBER_OF_CHAIRS_PER_KM * LIFT_LENGTH)
-EXPECTED_SKIERS_PER_HOUR = 1000
+EXPECTED_SKIERS_PER_HOUR = 1200
 DIRECTION = "SW"
 SKIERS_PER_HOUR = EXPECTED_SKIERS_PER_HOUR*FACTORS[column_dict[DIRECTION]][0]
 FREQUENCY = math.ceil(3600 / SKIERS_PER_HOUR)
+CURRENT_FACTOR = 0
 
 current_utilisation = 0
 
@@ -150,14 +154,14 @@ FONTSIZE = 20
 #font = pygame.font.Font(pygame.font.get_default_font(), FONTSIZE)
 font = pygame.font.SysFont('arial black', FONTSIZE)
 
-colors = [BLACK, BLACK, DARK_BLUE, RED, GREEN, GREY, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, ]
+colors = [BLACK, BLACK, DARK_BLUE, RED, GREEN, GREY, BLACK, BLACK, DARK_YELLOW, COBALT, VERY_DARK_BLUE, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, ]
 
 titles = ["Dauer der Simulation:", "Uhrzeit der Simlation:",
           "Sitze pro Sessel:", "Auslastung Lift:", "Anzahl Sessel pro km / total:",
-        "Liftgeschwindigkeit:", "Kapazität pro Stunde:", "Skifahrer in Warteschlange:", "Skifahrer transportiert:", "Skifahrer auf Lift:",
-           "Aktuelle Wartezeit:",
-            "Sessel pro Minute:",
-          "Neue Skifahrer pro Stunde:", "Verlorene Skifahrer: ", "Himmelsrichtung Lift:"]
+        "Liftgeschwindigkeit:", "Kapazität pro Stunde:", "Grundmenge Skifahrer: ", "Himmelsrichtung Lift:",  "Faktor Piste / Sonnenstand: ",
+          "Neue Skifahrer pro Stunde:", "Über / unter Kapazität: ", "Warteschlange Anzahl / Zeit:", "Skifahrer transportiert:", "Skifahrer auf Lift:",
+            #"Sessel pro Minute:",
+           "Verlorene Skifahrer: "]
 for i in range(len(titles)):
     text_message_title = font.render(titles[i], True, colors[i])
     TEXT_MESSAGES_TITLE.append(text_message_title)
@@ -381,7 +385,7 @@ def set_chairs_on_lift(number_of_chairs):
 
 def update_text(counter):
 
-    global FREQUENCY, hours_time, minutes_time, seconds_time, duration_as_string, time_as_string, expected_skiers, lost_skiers
+    global FREQUENCY, hours_time, minutes_time, seconds_time, duration_as_string, time_as_string, expected_skiers, lost_skiers, CURRENT_FACTOR
 
     TEXT_MESSAGES_VALUES = []
     minutes, seconds = divmod(counter, 60)
@@ -393,40 +397,48 @@ def update_text(counter):
     days_time, hours_time = divmod(hours_time + hours_start, 24)
     time_as_string = f'{hours_time:d}:{minutes_time:02d}:{seconds_time:02d}'
     TEXT_MESSAGES_VALUES.append(font.render(time_as_string, True, (0, 0, 0)))
+
     TEXT_MESSAGES_VALUES.append(font.render(str(CAPACITY), True, DARK_BLUE))
     TEXT_MESSAGES_VALUES.append(
-        font.render(str(current_utilisation * 100) + " %  (" + str(math.ceil(UTILISATION * 100)) + " %)", True, RED))
+        font.render(str("%.2f" % (current_utilisation * 100)) + " %  (" + str(math.ceil(UTILISATION * 100)) + " %)", True, RED))
     TEXT_MESSAGES_VALUES.append(font.render(str(NUMBER_OF_CHAIRS_PER_KM) + " / " + str(NUMBER_OF_CHAIRS), True, GREEN))
     TEXT_MESSAGES_VALUES.append(font.render(str(LIFT_SPEED_KMH) + " km/h", True, GREY))
     TEXT_MESSAGES_VALUES.append(
-        font.render(str(math.ceil(LIFT_SPEED_PIXEL / (1484 / NUMBER_OF_CHAIRS) * 3600 * CAPACITY * UTILISATION)), True,
-                    (0, 0, 0)))
+        font.render(str(math.ceil(LIFT_SPEED_PIXEL / (1484 / NUMBER_OF_CHAIRS) * 3600 * CAPACITY * UTILISATION)), True, (0, 0, 0)))
+    TEXT_MESSAGES_VALUES.append(font.render(str(EXPECTED_SKIERS_PER_HOUR), True, BLACK))
+    TEXT_MESSAGES_VALUES.append(font.render(DIRECTION, True, DARK_YELLOW))
+    TEXT_MESSAGES_VALUES.append(font.render(str(CURRENT_FACTOR), True, COBALT))
+    TEXT_MESSAGES_VALUES.append(font.render(str(math.floor(expected_skiers/2)) + "  (" + str(math.ceil(SKIERS_PER_HOUR)) + ")", True, VERY_DARK_BLUE))
 
-
-    TEXT_MESSAGES_VALUES.append(font.render(str(len(QUEUE_SKIERS.sprites())), True, (0, 0, 0)))
+    TEXT_MESSAGES_VALUES.append(font.render(
+        str(math.ceil(SKIERS_PER_HOUR) - math.ceil(
+            LIFT_SPEED_PIXEL / (1484 / NUMBER_OF_CHAIRS) * 3600 * CAPACITY * UTILISATION)), True, (0, 0, 0)))
+    TEXT_MESSAGES_VALUES.append(font.render(str(len(QUEUE_SKIERS.sprites())) + " / " + str(waiting_time_min) + " min", True, (0, 0, 0)))
     TEXT_MESSAGES_VALUES.append(font.render(str(skiers_transported), True, (0, 0, 0)))
     TEXT_MESSAGES_VALUES.append(font.render(str(skiers_on_lift), True, (0, 0, 0)))
-    TEXT_MESSAGES_VALUES.append(font.render(str(waiting_time_min) + " min", True, (0, 0, 0)))
-
-
-    TEXT_MESSAGES_VALUES.append(
-        font.render(str(math.ceil(LIFT_SPEED_PIXEL / (1484 / NUMBER_OF_CHAIRS) * 60)), True, (0, 0, 0)))
-
-    TEXT_MESSAGES_VALUES.append(font.render(str(math.floor(expected_skiers/2)) + "  (" + str(math.ceil(SKIERS_PER_HOUR)) + ")", True, (0, 0, 0)))
+    #TEXT_MESSAGES_VALUES.append(font.render(str(math.ceil(LIFT_SPEED_PIXEL / (1484 / NUMBER_OF_CHAIRS) * 60)), True, (0, 0, 0)))
     TEXT_MESSAGES_VALUES.append(font.render(str(lost_skiers), True, (0, 0, 0)))
-    TEXT_MESSAGES_VALUES.append(font.render(DIRECTION, True, DARK_YELLOW))
+
 
 
 
     position = 10
+    counter = 0
     for t in TEXT_MESSAGES_TITLE:
         screen.blit(t, pygame.Rect(20, position, 200, 30))
         position += FONTSIZE + 10
+        if counter in [1, 6, 10]:
+            position += 10
+        counter += 1
 
+    counter = 0
     position = 10
     for t in TEXT_MESSAGES_VALUES:
         screen.blit(t, pygame.Rect(350, position, 200, 30))
         position += FONTSIZE + 10
+        if counter in [1, 6, 10]:
+            position += 10
+        counter += 1
 
 def get_current_phase():
     if 8 <= hours_time <= 9:
@@ -445,14 +457,16 @@ def get_current_phase():
 def update_rate():
 
 
-    global FREQUENCY, counters_to_adjust_frequency, counter, time_phase_to_adjust_frequency, skier_counter_to_adjust_frequency, SKIERS_PER_HOUR, lost_skiers_to_adjust_frequency
+    global FREQUENCY, counters_to_adjust_frequency, counter, time_phase_to_adjust_frequency, skier_counter_to_adjust_frequency, SKIERS_PER_HOUR, lost_skiers_to_adjust_frequency, CURRENT_FACTOR
 
     if get_current_phase() == 0:
-        SKIERS_PER_HOUR = EXPECTED_SKIERS_PER_HOUR * FACTORS[column_dict[DIRECTION]][0]
+        CURRENT_FACTOR = FACTORS[column_dict[DIRECTION]][0]
+        SKIERS_PER_HOUR = EXPECTED_SKIERS_PER_HOUR * CURRENT_FACTOR
         counters_to_adjust_frequency[0] = counter
         time_phase_to_adjust_frequency = 0
     elif get_current_phase() == 1:
-        SKIERS_PER_HOUR = EXPECTED_SKIERS_PER_HOUR * FACTORS[column_dict[DIRECTION]][1]
+        CURRENT_FACTOR = FACTORS[column_dict[DIRECTION]][1]
+        SKIERS_PER_HOUR = EXPECTED_SKIERS_PER_HOUR * CURRENT_FACTOR
         counters_to_adjust_frequency[1] = counter
         if time_phase_to_adjust_frequency != 1:
             print("Phase 1")
@@ -460,7 +474,8 @@ def update_rate():
             skier_counter_to_adjust_frequency = 0
             lost_skiers_to_adjust_frequency = 0
     elif get_current_phase() == 2:
-        SKIERS_PER_HOUR = EXPECTED_SKIERS_PER_HOUR * FACTORS[column_dict[DIRECTION]][2]
+        CURRENT_FACTOR = FACTORS[column_dict[DIRECTION]][2]
+        SKIERS_PER_HOUR = EXPECTED_SKIERS_PER_HOUR * CURRENT_FACTOR
         counters_to_adjust_frequency[2] = counter
         if time_phase_to_adjust_frequency != 2:
             print("Phase 2")
@@ -468,7 +483,8 @@ def update_rate():
             skier_counter_to_adjust_frequency = 0
             lost_skiers_to_adjust_frequency = 0
     elif get_current_phase() == 3:
-        SKIERS_PER_HOUR = EXPECTED_SKIERS_PER_HOUR * FACTORS[column_dict[DIRECTION]][3]
+        CURRENT_FACTOR = FACTORS[column_dict[DIRECTION]][3]
+        SKIERS_PER_HOUR = EXPECTED_SKIERS_PER_HOUR * CURRENT_FACTOR
         counters_to_adjust_frequency[3] = counter
         if time_phase_to_adjust_frequency != 3:
             print("Phase 3")
@@ -476,6 +492,7 @@ def update_rate():
             skier_counter_to_adjust_frequency = 0
             lost_skiers_to_adjust_frequency = 0
     else:
+        CURRENT_FACTOR = 0
         SKIERS_PER_HOUR = 0
 
 
