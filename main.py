@@ -36,14 +36,7 @@ VIOLETT = (104, 51, 154)
 
 
 
-MARKS_QUALITY = [[1,	1,	2,	2],
-[2,	2,	2,	2],
-[3,	2,	2,	2],
-[3,	3,	1,	1],
-[2,	3,	3,	1],
-[2,	2,	3,	3],
-[2,	2,	2,	3],
-[2,	2,	2,	2]]
+MARKS_QUALITY = sessellift_settings.noten_skipiste
 WEIGHT_QUALITY = 2
 
 sum_quality = 0
@@ -55,14 +48,7 @@ for l in MARKS_QUALITY:
 avg_quality = sum_quality / (len(MARKS_QUALITY)*len(MARKS_QUALITY[0]))
 
 
-MARKS_SUN = [[1,	1,	1,	1],
-[2,	1,	1,	1],
-[3,	2,	1,	1],
-[3,	3,	2,	1],
-[2,	3,	3,	2],
-[1,	2,	3,	3],
-[1,	1,	2,	3],
-[1,	1,	1,	2]]
+MARKS_SUN = sessellift_settings.noten_sonneneinstrahlung
 WEIGHT_SUN = 1
 
 sum_sun = 0
@@ -215,7 +201,7 @@ titles = ["Dauer der Simulation:", "Uhrzeit der Simlation:",
           "Sitze pro Sessel:", "Auslastung Lift:", "Anzahl Sessel pro km / total:",
         "Liftgeschwindigkeit:", "Kapazität pro Stunde:", "Grundmenge Skifahrer: ", "Himmelsrichtung Lift:",
             "Faktor / Gewichtung Piste: ", "Faktor / Gewichtung Sonne: ", "Resultierender Faktor: ",
-          "Neue Skifahrer pro Stunde:", "Über / unter Kapazität: ", "Warteschlange Anzahl / Zeit:", "Skifahrer transportiert:", "Skifahrer auf Lift:",
+          "Anzahl Skifahrer pro Stunde:", "Über / unter Kapazität: ", "Warteschlange Anzahl / Zeit:", "Skifahrer transportiert:", "Skifahrer auf Lift:",
             #"Sessel pro Minute:",
            "Verlorene Skifahrer: "]
 for i in range(len(titles)):
@@ -486,7 +472,7 @@ def update_text(counter):
     for t in TEXT_MESSAGES_TITLE:
         screen.blit(t, pygame.Rect(20, position, 200, 30))
         position += FONTSIZE + 8
-        if counter in [1, 6, 11]:
+        if counter in [1, 6, 12]:
             position += 10
         counter += 1
 
@@ -495,7 +481,7 @@ def update_text(counter):
     for t in TEXT_MESSAGES_VALUES:
         screen.blit(t, pygame.Rect(350, position, 200, 30))
         position += FONTSIZE + 8
-        if counter in [1, 6, 11]:
+        if counter in [1, 6, 12]:
             position += 10
         counter += 1
 
