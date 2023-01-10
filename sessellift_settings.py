@@ -1,13 +1,37 @@
 
+# TODO: Einstellungen anpassen
+
 settings_dict = {
-  "SITZE PRO SESSEL": 3,
+  "SITZE PRO SESSEL": 5,
   "PROZENT AUSLASTUNG SESSEL": 80,
   "ANZAHL SESSEL PRO KM": 20,
   "FAHRGESCHWINDIGKEIT": 15,
-  "HIMMELSRICHTUNG": "N",
+  "HIMMELSRICHTUNG": "NO",
   "GRUNDMENGE SKIFAHRER": 2000,
   "PROZENT TOLERANTE SKIFAHRER": 20
 }
+
+
+
+
+
+
+# NICHT VERÄNDERN!!!
+def check_settings():
+
+  if not 2 <= settings_dict["SITZE PRO SESSEL"] <= 6:
+    exit("Ungültige Sesselgrösse")
+  if not 0 <= settings_dict["PROZENT AUSLASTUNG SESSEL"] <= 100:
+    exit("Ungültige Sesselauslastung")
+  if not 0 <= settings_dict["ANZAHL SESSEL PRO KM"] <= 20:
+    exit("Ungültige Anzahl Sessel pro km")
+  if not settings_dict["HIMMELSRICHTUNG"] in ["N", "NO", "O", "SO", "S", "SW", "W", "NW", "N"]:
+    exit("Ungültige Himmelsrichtung")
+  if not 0 <= settings_dict["GRUNDMENGE SKIFAHRER"] <= 2000:
+    exit("Ungültige Grundmegne Skifahrer")
+  if not 0 <= settings_dict["PROZENT TOLERANTE SKIFAHRER"] <= 100:
+    exit("Ungültige Prozentangabe zu toleranten Skifahrern")
+
 
 def get_dict():
     return settings_dict

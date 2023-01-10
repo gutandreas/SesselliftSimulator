@@ -27,18 +27,66 @@ COBALT = (0, 127, 151)
 BLACK = (0, 0, 0)
 RED = (234, 51, 35)
 GREY = (82, 82, 82)
-DARK_YELLOW = (170, 170, 0)
+BROWN = (123, 64, 26)
+DARK_GREEN = (63, 86, 42)
+ORANGE = (222, 131, 68)
+VIOLETT = (104, 51, 154)
 
 # Steuerungsvariablen
 
-FACTORS = [[0.222,	0.222,	1.112,	1.112],
-[0.890,	0.444,	0.890,	0.890],
-[2.000,	0.666,	0.666,	0.666],
-[1.778,	1.778,	0.890,	0.444],
-[1.112,	3.333,	0.666,	0.222],
-[0.890,	1.778,	0.890,	0.890],
-[0.666,	0.666,	0.666,	2.000],
-[0.444,	0.444,	0.890,	1.778]]
+
+
+MARKS_QUALITY = [[1,	1,	2,	2],
+[2,	2,	2,	2],
+[3,	2,	2,	2],
+[3,	3,	1,	1],
+[2,	3,	3,	1],
+[2,	2,	3,	3],
+[2,	2,	2,	3],
+[2,	2,	2,	2]]
+WEIGHT_QUALITY = 2
+
+sum_quality = 0
+for l in MARKS_QUALITY:
+    current_sum = 0
+    for i in l:
+        current_sum += i
+    sum_quality += current_sum
+avg_quality = sum_quality / (len(MARKS_QUALITY)*len(MARKS_QUALITY[0]))
+
+
+MARKS_SUN = [[1,	1,	1,	1],
+[2,	1,	1,	1],
+[3,	2,	1,	1],
+[3,	3,	2,	1],
+[2,	3,	3,	2],
+[1,	2,	3,	3],
+[1,	1,	2,	3],
+[1,	1,	1,	2]]
+WEIGHT_SUN = 1
+
+sum_sun = 0
+for l in MARKS_SUN:
+    current_sum = 0
+    for i in l:
+        current_sum += i
+    sum_sun += current_sum
+avg_sun = sum_sun / (len(MARKS_SUN)*len(MARKS_SUN[0]))
+print(avg_sun)
+
+
+FACTORS = []
+
+for i in range(8):
+    f = []
+    for j in range(4):
+        f.append((MARKS_QUALITY[i][j]/avg_quality*WEIGHT_QUALITY+MARKS_SUN[i][j]/avg_sun*WEIGHT_SUN)/(WEIGHT_QUALITY+WEIGHT_SUN))
+        print(MARKS_QUALITY[i][j]/avg_quality)
+        #print(WEIGHT_QUALITY+WEIGHT_SUN)
+
+    FACTORS.append(f)
+
+print(FACTORS)
 
 column_dict = {
   "N": 0,
@@ -51,10 +99,11 @@ column_dict = {
   "NW": 7
 }
 
+sessellift_settings.check_settings()
 settings = sessellift_settings.get_dict()
 
 running = True
-FPS = 80
+FPS = 120
 CAPACITY = settings["SITZE PRO SESSEL"]
 UTILISATION = settings["PROZENT AUSLASTUNG SESSEL"]/100
 NUMBER_OF_CHAIRS_PER_KM = settings["ANZAHL SESSEL PRO KM"]
@@ -75,8 +124,8 @@ current_utilisation = 0
 
 
 # Zeiteinstellung
-hours_start = 8
-minutes_start = 0
+hours_start = 11
+minutes_start = 58
 seconds_start = 0
 
 hours_time = 0
@@ -156,15 +205,16 @@ TEXT_MESSAGES_VALUES = []
 
 
 # Textanzeigen
-FONTSIZE = 20
+FONTSIZE = 17
 #font = pygame.font.Font(pygame.font.get_default_font(), FONTSIZE)
 font = pygame.font.SysFont('arial black', FONTSIZE)
 
-colors = [BLACK, BLACK, DARK_BLUE, RED, GREEN, GREY, BLACK, BLACK, DARK_YELLOW, COBALT, VERY_DARK_BLUE, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, ]
+colors = [BLACK, BLACK, DARK_BLUE, RED, GREEN, GREY, BLACK, VIOLETT, BROWN, DARK_GREEN, ORANGE, BLACK, VERY_DARK_BLUE, BLACK, BLACK, BLACK, BLACK, BLACK, ]
 
 titles = ["Dauer der Simulation:", "Uhrzeit der Simlation:",
           "Sitze pro Sessel:", "Auslastung Lift:", "Anzahl Sessel pro km / total:",
-        "Liftgeschwindigkeit:", "Kapazität pro Stunde:", "Grundmenge Skifahrer: ", "Himmelsrichtung Lift:",  "Faktor Piste / Sonnenstand: ",
+        "Liftgeschwindigkeit:", "Kapazität pro Stunde:", "Grundmenge Skifahrer: ", "Himmelsrichtung Lift:",
+            "Faktor / Gewichtung Piste: ", "Faktor / Gewichtung Sonne: ", "Resultierender Faktor: ",
           "Neue Skifahrer pro Stunde:", "Über / unter Kapazität: ", "Warteschlange Anzahl / Zeit:", "Skifahrer transportiert:", "Skifahrer auf Lift:",
             #"Sessel pro Minute:",
            "Verlorene Skifahrer: "]
@@ -411,9 +461,12 @@ def update_text(counter):
     TEXT_MESSAGES_VALUES.append(font.render(str(LIFT_SPEED_KMH) + " km/h", True, GREY))
     TEXT_MESSAGES_VALUES.append(
         font.render(str(math.ceil(LIFT_SPEED_PIXEL / (1484 / NUMBER_OF_CHAIRS) * 3600 * CAPACITY * UTILISATION)), True, (0, 0, 0)))
-    TEXT_MESSAGES_VALUES.append(font.render(str(EXPECTED_SKIERS_PER_HOUR), True, BLACK))
-    TEXT_MESSAGES_VALUES.append(font.render(DIRECTION, True, DARK_YELLOW))
-    TEXT_MESSAGES_VALUES.append(font.render(str(CURRENT_FACTOR), True, COBALT))
+    TEXT_MESSAGES_VALUES.append(font.render(str(EXPECTED_SKIERS_PER_HOUR), True, VIOLETT))
+    TEXT_MESSAGES_VALUES.append(font.render(DIRECTION, True, BROWN))
+    TEXT_MESSAGES_VALUES.append(font.render(str(MARKS_QUALITY[column_dict[DIRECTION]][get_current_phase()]/avg_quality) + " / " + str(WEIGHT_QUALITY), True, DARK_GREEN))
+    TEXT_MESSAGES_VALUES.append(font.render(str(MARKS_SUN[column_dict[DIRECTION]][get_current_phase()] / avg_sun) + " / " + str(WEIGHT_SUN), True, ORANGE))
+    TEXT_MESSAGES_VALUES.append(font.render(str(CURRENT_FACTOR), True, BLACK))
+
     TEXT_MESSAGES_VALUES.append(font.render(str(math.floor(expected_skiers/2)) + "  (" + str(math.ceil(SKIERS_PER_HOUR)) + ")", True, VERY_DARK_BLUE))
 
     TEXT_MESSAGES_VALUES.append(font.render(
@@ -432,8 +485,8 @@ def update_text(counter):
     counter = 0
     for t in TEXT_MESSAGES_TITLE:
         screen.blit(t, pygame.Rect(20, position, 200, 30))
-        position += FONTSIZE + 10
-        if counter in [1, 6, 10]:
+        position += FONTSIZE + 8
+        if counter in [1, 6, 11]:
             position += 10
         counter += 1
 
@@ -441,8 +494,8 @@ def update_text(counter):
     position = 10
     for t in TEXT_MESSAGES_VALUES:
         screen.blit(t, pygame.Rect(350, position, 200, 30))
-        position += FONTSIZE + 10
-        if counter in [1, 6, 10]:
+        position += FONTSIZE + 8
+        if counter in [1, 6, 11]:
             position += 10
         counter += 1
 
