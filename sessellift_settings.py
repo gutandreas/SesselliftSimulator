@@ -2,13 +2,16 @@
 # TODO: Einstellungen anpassen
 
 settings_dict = {
-  "SITZE PRO SESSEL": 4,
-  "PROZENT AUSLASTUNG SESSEL": 75,
-  "ANZAHL SESSEL PRO KM": 20,
-  "FAHRGESCHWINDIGKEIT": 15,
-  "HIMMELSRICHTUNG": "NO",
-  "GRUNDMENGE SKIFAHRER": 1000,
-  "PROZENT TOLERANTE SKIFAHRER": 20
+    "SITZE PRO SESSEL": 4,
+    "PROZENT AUSLASTUNG SESSEL": 75,
+    "ANZAHL SESSEL PRO KM": 20,
+    "FAHRGESCHWINDIGKEIT": 15,
+    "HIMMELSRICHTUNG": "S",
+    "GRUNDMENGE SKIFAHRER": 1000,
+    "PROZENT TOLERANTE SKIFAHRER": 20,
+    "STARTZEIT STUNDEN": 8,
+    "STARTZEIT MINUTEN": 0,
+    "STARTZEIT SEKUNDEN": 0
 }
 
 noten_skipiste = [[1,	1,	2,	2],
@@ -44,6 +47,12 @@ def check_settings():
     exit("Ungültige Grundmegne Skifahrer")
   if not 0 <= settings_dict["PROZENT TOLERANTE SKIFAHRER"] <= 100:
     exit("Ungültige Prozentangabe zu toleranten Skifahrern")
+  if not 8 <= settings_dict["STARTZEIT STUNDEN"] <= 16:
+    exit("Ungültige Startzeit")
+  if not 0 <= settings_dict["STARTZEIT MINUTEN"] <= 59:
+    exit("Ungültige Startzeit")
+  if not 0 <= settings_dict["STARTZEIT STUNDEN"] <= 59:
+    exit("Ungültige Startzeit")
 
 
 def get_dict():
