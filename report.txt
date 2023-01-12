@@ -1,15 +1,3 @@
-Report zur Simulation von 12-01-2023, 13:29:13 des Users andreasgut
-Anzahl Plätze pro Sessel 4, Sesselauslastung: 75.0%, Anzahl Sessel pro km: 20, Fahrgeschwindigkeit: 15 km/h, Toleranz: 20%, Himmelsrichtung: S
-
-Dauer: 0:00:55
-Uhrzeit in Simulation: 8:00:55
-Transportierte Skifahrer: 0
-Skifahrer in Warteschlange: 7
-Wartezeit in Minuten: 0
-Liftauslastung tatsaechlich: 0.0
-Liftauslastung angenommen: 0.75
-Ueber/unter Kapazität: 144
-Skifahrer pro Stunde (real): 900.25
-Skifahrer pro Stunde (soll): 1018
-Vertriebene Skifahrer: 0
+Report zur Simulation von 12-01-2023, 16:14:37 des Users andreasgut
+Anzahl Plätze pro Sessel 4, Sesselauslastung: 75.0%, Anzahl Sessel pro km: 20, Fahrgeschwindigkeit: 15 km/h, Toleranz: 20%, Himmelsrichtung: SO
 

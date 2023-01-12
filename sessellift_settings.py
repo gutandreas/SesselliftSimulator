@@ -1,4 +1,3 @@
-
 # TODO: Einstellungen anpassen
 
 settings_dict = {
@@ -6,7 +5,7 @@ settings_dict = {
     "PROZENT AUSLASTUNG SESSEL": 75,
     "ANZAHL SESSEL PRO KM": 20,
     "FAHRGESCHWINDIGKEIT": 15,
-    "HIMMELSRICHTUNG": "S",
+    "HIMMELSRICHTUNG": "SO",
     "GRUNDMENGE SKIFAHRER": 1000,
     "PROZENT TOLERANTE SKIFAHRER": 20,
     "STARTZEIT STUNDEN": 8,
@@ -14,20 +13,20 @@ settings_dict = {
     "STARTZEIT SEKUNDEN": 0
 }
 
-noten_skipiste = [[1,	1,	2,	2],
-                  [2,	2,	2,	2],
-                  [3,	2,	2,	2],
-                  [3,	3,	1,	1],
-                  [2,	3,	3,	1],
-                  [2,	2,	3,	3],
-                  [2,	2,	2,	3],
-                  [2,	2,	2,	2]]
+noten_skipiste = [[1, 1, 2, 2],
+                  [2, 2, 2, 2],
+                  [3, 2, 2, 2],
+                  [3, 3, 1, 1],
+                  [2, 3, 3, 1],
+                  [2, 2, 3, 3],
+                  [2, 2, 2, 3],
+                  [2, 2, 2, 2]]
 
-noten_sonneneinstrahlung = [[1,	1,	1,	1],
-                            [2,	1,	1,	1],
-                            [3,	2,	1,	1],
-                            [3,	3,	2,	1],
-                            [2,	3,	3,	2],
-                            [1,	2,	3,	3],
-                            [1,	1,	2,	3],
-                            [1,	1,	1,	2]]
+noten_sonneneinstrahlung = [[1, 1, 1, 1],
+                            [2, 1, 1, 1],
+                            [3, 2, 1, 1],
+                            [3, 3, 2, 1],
+                            [2, 3, 3, 2],
+                            [1, 2, 3, 3],
+                            [1, 1, 2, 3],
+                            [1, 1, 1, 2]]

@@ -10,6 +10,7 @@ import sessellift_settings
 
 pygame.init()
 
+
 # Fenster
 (width, height) = (1536, 864)
 screen = pygame.display.set_mode((width, height))
@@ -58,7 +59,6 @@ for l in MARKS_SUN:
         current_sum += i
     sum_sun += current_sum
 avg_sun = sum_sun / (len(MARKS_SUN)*len(MARKS_SUN[0]))
-print(avg_sun)
 
 
 FACTORS = []
@@ -67,12 +67,11 @@ for i in range(8):
     f = []
     for j in range(4):
         f.append((MARKS_QUALITY[i][j]/avg_quality*WEIGHT_QUALITY+MARKS_SUN[i][j]/avg_sun*WEIGHT_SUN)/(WEIGHT_QUALITY+WEIGHT_SUN))
-        print(MARKS_QUALITY[i][j]/avg_quality)
+        #print(MARKS_QUALITY[i][j]/avg_quality)
         #print(WEIGHT_QUALITY+WEIGHT_SUN)
 
     FACTORS.append(f)
 
-print(FACTORS)
 
 column_dict = {
   "N": 0,
@@ -85,8 +84,33 @@ column_dict = {
   "NW": 7
 }
 
-sessellift_settings.check_settings()
-settings = sessellift_settings.get_dict()
+settings = sessellift_settings.settings_dict
+
+def check_settings():
+
+  if not 2 <= settings["SITZE PRO SESSEL"] <= 6:
+    exit("Ungültige Sesselgrösse")
+  if not 0 <= settings["PROZENT AUSLASTUNG SESSEL"] <= 100:
+    exit("Ungültige Sesselauslastung")
+  if not 0 <= settings["ANZAHL SESSEL PRO KM"] <= 20:
+    exit("Ungültige Anzahl Sessel pro km")
+  if not settings["HIMMELSRICHTUNG"] in ["N", "NO", "O", "SO", "S", "SW", "W", "NW", "N"]:
+    exit("Ungültige Himmelsrichtung")
+  if not 0 <= settings["GRUNDMENGE SKIFAHRER"] <= 2000:
+    exit("Ungültige Grundmegne Skifahrer")
+  if not 0 <= settings["PROZENT TOLERANTE SKIFAHRER"] <= 100:
+    exit("Ungültige Prozentangabe zu toleranten Skifahrern")
+  if not 8 <= settings["STARTZEIT STUNDEN"] <= 16:
+    exit("Ungültige Startzeit")
+  if not 0 <= settings["STARTZEIT MINUTEN"] <= 59:
+    exit("Ungültige Startzeit")
+  if not 0 <= settings["STARTZEIT STUNDEN"] <= 59:
+    exit("Ungültige Startzeit")
+
+check_settings()
+
+
+
 
 running = True
 FPS = 120
@@ -110,9 +134,9 @@ current_utilisation = 0
 
 
 # Zeiteinstellung
-hours_start = 11
-minutes_start = 58
-seconds_start = 0
+hours_start = settings["STARTZEIT STUNDEN"]
+minutes_start = settings["STARTZEIT MINUTEN"]
+seconds_start = settings["STARTZEIT SEKUNDEN"]
 
 hours_time = 0
 minutes_time = 0
@@ -203,7 +227,7 @@ titles = ["Dauer der Simulation:", "Uhrzeit der Simlation:",
             "Faktor / Gewichtung Piste: ", "Faktor / Gewichtung Sonne: ", "Resultierender Faktor: ",
           "Anzahl Skifahrer pro Stunde:", "Über / unter Kapazität: ", "Warteschlange Anzahl / Zeit:", "Skifahrer transportiert:", "Skifahrer auf Lift:",
             #"Sessel pro Minute:",
-           "Verlorene Skifahrer: "]
+           "Vertriebene Skifahrer: "]
 for i in range(len(titles)):
     text_message_title = font.render(titles[i], True, colors[i])
     TEXT_MESSAGES_TITLE.append(text_message_title)
