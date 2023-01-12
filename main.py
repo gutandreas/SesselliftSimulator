@@ -10,6 +10,7 @@ import sessellift_settings
 
 pygame.init()
 
+
 # Fenster
 (width, height) = (1536, 864)
 screen = pygame.display.set_mode((width, height))
@@ -83,8 +84,33 @@ column_dict = {
   "NW": 7
 }
 
-sessellift_settings.check_settings()
-settings = sessellift_settings.get_dict()
+settings = sessellift_settings.settings_dict
+
+def check_settings():
+
+  if not 2 <= settings["SITZE PRO SESSEL"] <= 6:
+    exit("Ungültige Sesselgrösse")
+  if not 0 <= settings["PROZENT AUSLASTUNG SESSEL"] <= 100:
+    exit("Ungültige Sesselauslastung")
+  if not 0 <= settings["ANZAHL SESSEL PRO KM"] <= 20:
+    exit("Ungültige Anzahl Sessel pro km")
+  if not settings["HIMMELSRICHTUNG"] in ["N", "NO", "O", "SO", "S", "SW", "W", "NW", "N"]:
+    exit("Ungültige Himmelsrichtung")
+  if not 0 <= settings["GRUNDMENGE SKIFAHRER"] <= 2000:
+    exit("Ungültige Grundmegne Skifahrer")
+  if not 0 <= settings["PROZENT TOLERANTE SKIFAHRER"] <= 100:
+    exit("Ungültige Prozentangabe zu toleranten Skifahrern")
+  if not 8 <= settings["STARTZEIT STUNDEN"] <= 16:
+    exit("Ungültige Startzeit")
+  if not 0 <= settings["STARTZEIT MINUTEN"] <= 59:
+    exit("Ungültige Startzeit")
+  if not 0 <= settings["STARTZEIT STUNDEN"] <= 59:
+    exit("Ungültige Startzeit")
+
+check_settings()
+
+
+
 
 running = True
 FPS = 120
