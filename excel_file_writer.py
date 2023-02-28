@@ -1,6 +1,8 @@
 import pandas as pd
 from pandas import DataFrame
 
+
+
 file = open('report.txt', 'r')
 lines = file.readlines()
 title = lines[0]
@@ -11,7 +13,7 @@ print(informations)
 
 # read text file into pandas DataFrame and
 # create header
-df = pd.read_csv("report.txt", sep=":", skiprows=[0, 1, 2], header=None)
+df = pd.read_csv("report.txt", sep=": ", skiprows=[0, 1, 2], header=None, engine='python')
 titels = []
 for index, row in df.iterrows():
     if not row[0] in titels:
