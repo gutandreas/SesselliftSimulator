@@ -1,3 +1,4 @@
+import getpass
 import math
 import os
 import random
@@ -637,7 +638,7 @@ def main():
 
     file = open("report.txt", "w")
     file.write("Report zur Simulation von " + str(datetime.now().strftime("%d-%m-%Y, %H:%M:%S"))
-               + " des Users " + str(os.environ.get('USER')) + "\n"
+               + " des Users " + str(getpass.getuser()) + "\n"
                + "Anzahl Plätze pro Sessel " + str(CAPACITY) + ", Sesselauslastung: " + str(UTILISATION * 100) + "%"
                + ", Anzahl Sessel pro km: " + str(NUMBER_OF_CHAIRS_PER_KM) + ", Fahrgeschwindigkeit: " + str(
         LIFT_SPEED_KMH) + " km/h" + ", Grundmenge Skifahrer: " + str(EXPECTED_SKIERS_PER_HOUR)
